@@ -6,9 +6,11 @@ app = Flask(__name__)
 
 from routes.portfolio import portfolio
 from routes.ocr import ocr
+from routes.research_notes import research_notes
 
 app.register_blueprint(portfolio)
 app.register_blueprint(ocr)
+app.register_blueprint(research_notes)
 
 
 @app.route("/")

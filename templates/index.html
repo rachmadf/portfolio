@@ -114,132 +114,78 @@
         </section>
 
         <section id="portfolio" class="pb-5">
-
             <div class="container">
+                <h2 class="mb-4">Portfolio Sections</h2>
+                <div class="row g-4">
+                    <!-- CARD: DATA ANALYSIS -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5>Data Analysis</h5>
+                                <p>
+                                    Statistical analysis,
+                                    data visualization,
+                                    and reporting projects.
+                                </p>
+                                <a href="#" class="btn btn-outline-primary disabled">
+                                    Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CARD: DATA SCIENCE -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5>Data Science</h5>
+                                <p>
+                                    Machine learning,
+                                    clustering,
+                                    and AI applications.
+                                </p>
 
-            <h2 class="mb-4">
+                                <a href="#" class="btn btn-outline-primary disabled">
+                                    Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-            Portfolio Sections
+                    <!-- CARD: COURSE MATERIALS -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5>Course Materials</h5>
+                                <p>
+                                    Lecture notes,
+                                    slides,
+                                    and laboratory modules.
+                                </p>
+                                <a href="#" class="btn btn-outline-primary disabled"> 
+                                    Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-            </h2>
-
-            <div class="row g-4">
-
-            <div class="col-md-6 col-lg-4">
-
-            <div class="card h-100 shadow-sm">
-
-            <div class="card-body">
-
-            <h5>Data Analysis</h5>
-
-            <p>
-
-            Statistical analysis,
-            data visualization,
-            and reporting projects.
-
-            </p>
-
-            <a href="#"
-            class="btn btn-outline-primary">
-
-            Open
-
-            </a>
-
-            </div>
-
-            </div>
-
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-
-            <div class="card h-100 shadow-sm">
-
-            <div class="card-body">
-
-            <h5>Data Science</h5>
-
-            <p>
-
-            Machine learning,
-            clustering,
-            and AI applications.
-
-            </p>
-
-            <a href="#"
-            class="btn btn-outline-primary">
-
-            Open
-
-            </a>
-
-            </div>
-
-            </div>
-
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-
-            <div class="card h-100 shadow-sm">
-
-            <div class="card-body">
-
-            <h5>Course Materials</h5>
-
-            <p>
-
-            Lecture notes,
-            slides,
-            and laboratory modules.
-
-            </p>
-
-            <a href="#"
-            class="btn btn-outline-primary">
-
-            Open
-
-            </a>
-
-            </div>
-
-            </div>
-
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-
-            <div class="card h-100 shadow-sm">
-
-            <div class="card-body">
-
-            <h5>Research Notes</h5>
-
-            <p>
-
-            Publications,
-            research roadmap,
-            and experiments.
-
-            </p>
-
-            <a href="#"
-            class="btn btn-outline-primary">
-
-            Open
-
-            </a>
-
-            </div>
-
-            </div>
-
-            </div>
+                    <!-- CARD: RESEARCH NOTES -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5>Research Notes</h5>
+                                <p>
+                                    Publications,
+                                    research roadmap,
+                                    and experiments.
+                                </p>
+                                <a href="{{ url_for('research_notes.index') }}"
+                                    class="btn btn-outline-primary">
+                                    Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm">
@@ -260,39 +206,25 @@
             </div>
 
             <div class="col-md-6 col-lg-4">
-
-            <div class="card h-100 shadow-sm">
-
-            <div class="card-body">
-
-            <h5>About Me</h5>
-
-            <p>
-
-            Professional profile,
-            experience,
-            and certifications.
-
-            </p>
-
-            <a href="#"
-            class="btn btn-outline-primary">
-
-            Open
-
-            </a>
-
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5>About Me</h5>
+                        <p>
+                        Professional profile,
+                        experience,
+                        and certifications.
+                        </p>
+                        <a href="#"
+                            class="btn btn-outline-primary disabled">
+                            Open
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            </div>
-
-            </div>
-
-            </div>
-
-            </div>
-
-        </section>
+        </div>
+    </div>
+</section>
 
         <footer class="bg-white border-top py-3">
 

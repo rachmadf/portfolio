@@ -1,0 +1,540 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Research Notes{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <!-- =========================================
+         PAGE HEADER
+    ========================================== -->
+    <div class="mb-4">
+        <h1 class="h3 mb-2">Research Notes</h1>
+        <p class="text-muted mb-0">
+            Publications, research roadmap, experiments, and research ideas.
+        </p>
+    </div>
+
+
+    <!-- =========================================
+         RESEARCH OVERVIEW
+    ========================================== -->
+    <div class="row g-4 mb-5">
+
+        <!-- Publications -->
+        <div class="col-md-4">
+            <div class="card h-100 border rounded-3 shadow-sm">
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-3 p-2 me-3">
+                            <i class="bi bi-journal-text text-primary fs-4"></i>
+                        </div>
+
+                        <h2 class="h5 mb-0">My Publications</h2>
+                    </div>
+
+                    <p class="text-muted mb-4">
+                        Published research, journal articles, conference papers,
+                        and research currently under review.
+                    </p>
+
+                    <a href="#"
+                       class="btn btn-outline-primary">
+                        View Publications
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Research Roadmap -->
+        <div class="col-md-4">
+            <div class="card h-100 border rounded-3 shadow-sm">
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-success bg-opacity-10 rounded-3 p-2 me-3">
+                            <i class="bi bi-signpost-split text-success fs-4"></i>
+                        </div>
+
+                        <h2 class="h5 mb-0">Research Roadmap</h2>
+                    </div>
+
+                    <p class="text-muted mb-4">
+                        My research direction, completed studies, current work,
+                        and future research opportunities.
+                    </p>
+
+                    <a href="#"
+                       class="btn btn-outline-success">
+                        View Roadmap
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Research Notes -->
+        <div class="col-md-4">
+            <div class="card h-100 border rounded-3 shadow-sm">
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-warning bg-opacity-10 rounded-3 p-2 me-3">
+                            <i class="bi bi-lightbulb text-warning fs-4"></i>
+                        </div>
+
+                        <h2 class="h5 mb-0">Research Notes</h2>
+                    </div>
+
+                    <p class="text-muted mb-4">
+                        Research ideas, methodological notes, experiments,
+                        observations, and developing concepts.
+                    </p>
+
+                    <a href="#"
+                       class="btn btn-outline-warning">
+                        Explore Notes
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         PUBLICATIONS
+    ========================================== -->
+    <section class="mb-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <div>
+                <h2 class="h4 mb-1">Selected Publications</h2>
+                <p class="text-muted mb-0">
+                    Selected research contributions and ongoing publications.
+                </p>
+            </div>
+
+            <a href="#" class="btn btn-sm btn-outline-primary">
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Publication 1 -->
+            <div class="col-lg-12">
+                <div class="card h-100 border rounded-3 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex gap-2 mb-1">
+                            <span class="badge bg-success">Published</span>
+                            <span class="badge bg-dark text-white">2024</span>
+                        </div>
+                        <!-- <div class="d-flex justify-content-between align-items-start mb-1">
+                            <span class="badge bg-success">Published</span>
+                            <small class="text-muted">2024–2025</small>
+                        </div> -->
+
+                        <h3 class="h5">Basic Interpretation Technique for Clustered Data</h3>
+                        <p class="text-muted mb-1">
+                            Research on the interpretation of clustering results
+                            using the modal value as a basic interpretation
+                            technique for clustered data.
+                        </p>
+
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-file-text-fill me-1"></i>
+                                Journal of Data Science and Analytics
+                            </small>
+                        </div>
+
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read Publication</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Publication 2 -->
+            <div class="col-lg-12">
+                <div class="card h-100 border rounded-3 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex gap-2 mb-1">
+                            <span class="badge bg-success">Published</span>
+                            <span class="badge bg-dark text-white">2024</span>
+                        </div>
+
+                        <h3 class="h5">Feature Selection Impact for Clustering</h3>
+                        <p class="text-muted mb-1">
+                            Investigation of feature selection techniques,
+                            including Chi-Square and Mutual Information,
+                            for qualitative dataset clustering.
+                        </p>
+
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-file-text-fill me-1"></i>
+                                Journal of Data Science and Analytics
+                            </small>
+                        </div>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read Publication</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Publication 3 -->
+            <div class="col-lg-12">
+                <div class="card h-100 border rounded-3 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex gap-2 mb-1">
+                            <span class="badge bg-warning text-dark">Under Review</span>
+                            <span class="badge bg-secondary text-white">2025 – 2026</span>
+                        </div>
+
+                        <h3 class="h5">
+                            Cluster Validation Framework
+                        </h3>
+
+                        <p class="text-muted mb-1">
+                            A cluster validation approach combining DBI,
+                            Silhouette Score, and boxplot-based analysis
+                            for evaluating clustering quality.
+                        </p>
+
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-file-text-fill me-1"></i>
+                                Journal of Data Science and Analytics
+                            </small>
+                        </div>
+
+                        <a href="#" class="btn btn-sm btn-outline-primary">Research Details</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Publication 4 -->
+            <div class="col-lg-6">
+                <div class="card h-100 border rounded-3 shadow-sm">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge bg-secondary">
+                                Research Idea
+                            </span>
+
+                            <small class="text-muted">
+                                Future
+                            </small>
+                        </div>
+
+                        <h3 class="h5">
+                            Relationship-Based Cluster Explanation
+                        </h3>
+
+                        <p class="text-muted">
+                            Exploring relationships among features as a
+                            complementary approach to feature attribution
+                            for explainable clustering.
+                        </p>
+
+                        <a href="#" class="btn btn-sm btn-outline-primary">
+                            Research Notes
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         RESEARCH ROADMAP
+    ========================================== -->
+    <section class="mb-5">
+
+        <div class="mb-4">
+            <h2 class="h4 mb-1">Research Roadmap</h2>
+            <p class="text-muted mb-0">
+                The evolution of my research interests and planned directions.
+            </p>
+        </div>
+
+
+        <div class="card border rounded-3 shadow-sm">
+
+            <div class="card-body p-4">
+
+                <div class="row g-4">
+
+                    <!-- Completed -->
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="border-start border-success border-3 ps-3">
+
+                            <span class="badge bg-success mb-2">
+                                2024–2025
+                            </span>
+
+                            <h3 class="h6">
+                                Foundation
+                            </h3>
+
+                            <p class="small text-muted mb-0">
+                                Basic interpretation techniques and feature
+                                selection for clustering.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Current -->
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="border-start border-primary border-3 ps-3">
+
+                            <span class="badge bg-primary mb-2">
+                                2025–2026
+                            </span>
+
+                            <h3 class="h6">
+                                Cluster Validation
+                            </h3>
+
+                            <p class="small text-muted mb-0">
+                                Development of a multi-perspective cluster
+                                validation framework.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Near Future -->
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="border-start border-warning border-3 ps-3">
+
+                            <span class="badge bg-warning text-dark mb-2">
+                                2026–2028
+                            </span>
+
+                            <h3 class="h6">
+                                Cluster Interpretation
+                            </h3>
+
+                            <p class="small text-muted mb-0">
+                                Decision Tree-based approaches for interpreting
+                                clustering results.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Future -->
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="border-start border-secondary border-3 ps-3">
+
+                            <span class="badge bg-secondary mb-2">
+                                2026+
+                            </span>
+
+                            <h3 class="h6">
+                                Explainable Clustering
+                            </h3>
+
+                            <p class="small text-muted mb-0">
+                                Relationship-based explanations and feature
+                                attribution for explainable clustering.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         RESEARCH NOTES
+    ========================================== -->
+    <section>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <div>
+                <h2 class="h4 mb-1">Latest Research Notes</h2>
+                <p class="text-muted mb-0">
+                    Ideas and observations from ongoing research.
+                </p>
+            </div>
+
+            <a href="#" class="btn btn-sm btn-outline-primary">
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Note 1 -->
+            <div class="col-lg-4 col-md-6">
+
+                <article class="card h-100 border rounded-3 shadow-sm">
+
+                    <div class="card-body">
+
+                        <div class="mb-3">
+                            <span class="badge bg-light text-dark border">
+                                Explainable AI
+                            </span>
+                        </div>
+
+                        <h3 class="h5">
+                            Feature Relationship Profiling
+                        </h3>
+
+                        <p class="text-muted small">
+                            Exploring how relationships among dataset features
+                            can be profiled before applying machine learning
+                            models.
+                        </p>
+
+                        <a href="#"
+                           class="btn btn-sm btn-link px-0 text-decoration-none">
+                            Read Note
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="card-footer bg-transparent border-top">
+                        <small class="text-muted">
+                            Research Concept
+                        </small>
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- Note 2 -->
+            <div class="col-lg-4 col-md-6">
+
+                <article class="card h-100 border rounded-3 shadow-sm">
+
+                    <div class="card-body">
+
+                        <div class="mb-3">
+                            <span class="badge bg-light text-dark border">
+                                Clustering
+                            </span>
+                        </div>
+
+                        <h3 class="h5">
+                            Relationship-Based Cluster Explanation
+                        </h3>
+
+                        <p class="text-muted small">
+                            Investigating feature relationships as a
+                            complementary explanation mechanism beyond
+                            conventional feature attribution.
+                        </p>
+
+                        <a href="#"
+                           class="btn btn-sm btn-link px-0 text-decoration-none">
+                            Read Note
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="card-footer bg-transparent border-top">
+                        <small class="text-muted">
+                            Dissertation Research
+                        </small>
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- Note 3 -->
+            <div class="col-lg-4 col-md-6">
+
+                <article class="card h-100 border rounded-3 shadow-sm">
+
+                    <div class="card-body">
+
+                        <div class="mb-3">
+                            <span class="badge bg-light text-dark border">
+                                Methodology
+                            </span>
+                        </div>
+
+                        <h3 class="h5">
+                            Multi-Perspective Cluster Validation
+                        </h3>
+
+                        <p class="text-muted small">
+                            Combining internal validation metrics with
+                            distributional analysis to obtain a more robust
+                            assessment of clustering quality.
+                        </p>
+
+                        <a href="#"
+                           class="btn btn-sm btn-link px-0 text-decoration-none">
+                            Read Note
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="card-footer bg-transparent border-top">
+                        <small class="text-muted">
+                            Methodological Note
+                        </small>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
