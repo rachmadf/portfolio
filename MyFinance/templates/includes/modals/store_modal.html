@@ -1,0 +1,157 @@
+<!-- ==========================================================
+     Store Lookup Modal
+========================================================== -->
+<div class="modal fade"
+     id="storeModal"
+     tabindex="-1"
+     aria-labelledby="storeModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+
+        <div class="modal-content rounded-4 shadow">
+
+            <!-- ========================================= -->
+            <!-- Modal Header -->
+            <!-- ========================================= -->
+            <div class="modal-header bg-success text-white">
+
+                <h5 class="modal-title"
+                    id="storeModalLabel">
+
+                    <i class="bi bi-shop me-2"></i>
+                    Store List
+
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- Modal Body -->
+            <!-- ========================================= -->
+            <div class="modal-body">
+
+                <table
+                    id="tblStoreLookup"
+                    class="table table-hover table-striped align-middle w-100">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th style="width:8%">
+                                ID
+                            </th>
+
+                            <th>
+                                Store Name
+                            </th>
+
+                            <th class="text-center"
+                                style="width:15%">
+                                Status
+                            </th>
+
+                            <th class="text-center"
+                                style="width:15%">
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for store in stores %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ store.store_id }}
+
+                            </td>
+
+                            <td>
+
+                                {{ store.store_name }}
+
+                            </td>
+
+                            <td class="text-center">
+
+                                {% if store.is_active == 1 %}
+
+                                    <span class="badge bg-success">
+
+                                        Active
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        Inactive
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-success btnSelectStore"
+                                    data-id="{{ store.store_id }}"
+                                    data-name="{{ store.store_name }}">
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    Select
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- Modal Footer -->
+            <!-- ========================================= -->
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    <i class="bi bi-x-circle me-1"></i>
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

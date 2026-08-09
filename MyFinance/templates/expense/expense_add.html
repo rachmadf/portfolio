@@ -1,0 +1,290 @@
+{% extends "layouts/base.html" %}
+{% block title %}Expense Entry{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
+{% block content %}
+	{% with messages=get_flashed_messages(with_categories=true) %}
+		{% for category,message in messages %}
+			<div class="alert alert-{{category}} alert-dismissible fade show">
+				{{message}}
+				<button class="btn-close" data-bs-dismiss="alert"></button>
+			</div>
+		{% endfor %}
+	{% endwith %}
+
+	<form id="expenseForm" method="POST" action="{{ url_for('expense.add_expense') }}">
+		<div class="row g-3">
+			<div class="col-md-3">
+				<label>Expense Date</label>
+				<input class="form-control" type="date" id="expense_date" name="expense_date" value="{{ expense.expense_date if expense else '' }}" required>
+			</div>
+
+			<div class="col-md-3">
+				<label>Store</label>
+				<select class="form-select" id="store_id" name="store_id">
+					{% for store in stores %}
+						<option value="{{store.store_id}}">{{store.store_name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="col-md-3">
+				<label>Payment</label>
+				<select class="form-select" id="payment_method_id" name="payment_method_id">
+					{% for payment in payment_methods %}
+						<option value="{{payment.payment_method_id}}">{{payment.payment_method_name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="col-md-3">
+				<label>Receipt</label>
+				<input class="form-control" id="receipt_number" name="receipt_number">
+			</div>
+			
+			<div class="col-12">
+				<label>Note</label>
+				<textarea class="form-control" id="notes" name="notes"></textarea>
+			</div>
+		</div>
+		<hr>
+		<button type="button" class="btn btn-primary" id="btnAddItem">Add Item</button>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Category</th>
+					<th>Item</th>
+					<th>Qty</th>
+					<th>Price</th>
+					<th>Subtotal</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="expenseItems"></tbody>
+		</table>
+		
+		<div class="row">
+			<div class="col-md-4">
+				<label>Discount</label>
+				<input id="discount" name="discount" class="form-control" value="0">
+			</div>
+			<div class="col-md-4">
+				<label>Total Items</label>
+				<input id="totalItems" class="form-control" readonly>
+			</div>
+			<div class="col-md-4">
+				<label>Grand Total</label>
+				<input id="grandTotal" class="form-control" readonly>
+			</div>
+		</div>
+
+		<input type="hidden" id="expense_details" name="expense_details">
+		<div class="mt-3 text-end">
+			<a class="btn btn-secondary" href="{{ url_for('expense.add_expense') }}">Cancel</a>
+			<button type="reset" class="btn btn-warning" id="btnReset">Reset</button>
+			<button type="button" class="btn btn-success" id="btnSave">Save Expense</button>
+		</div>
+	</form>
+	
+	<div class="modal fade" id="saveExpenseModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">Save transaction?</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" id="confirmSave">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ==========================================================
+     Previous Item History Modal
+	========================================================== -->
+	<div class="modal fade" id="itemHistoryModal" tabindex="-1">
+
+	    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+
+	        <div class="modal-content">
+
+	            <div class="modal-header">
+
+	                <h5 class="modal-title">
+	                    Previous Items
+	                </h5>
+
+	                <button
+	                    type="button"
+	                    class="btn-close"
+	                    data-bs-dismiss="modal">
+	                </button>
+
+	            </div>
+
+	            <div class="modal-body">
+
+	                <div class="mb-3">
+
+	                    <label class="form-label">
+	                        Category
+	                    </label>
+
+	                    <input
+	                        type="text"
+	                        id="historyCategoryName"
+	                        class="form-control"
+	                        readonly>
+
+	                </div>
+
+	                <table
+	                    class="table table-bordered table-hover align-middle"
+	                    id="historyTable">
+
+	                    <thead class="table-light">
+
+	                        <tr>
+
+	                            <th style="width:50%">Item Name</th>
+
+	                            <th class="text-end">
+	                                Last Price
+	                            </th>
+
+	                            <th class="text-center">
+	                                Used
+	                            </th>
+
+	                            <th class="text-center">
+	                                Action
+	                            </th>
+
+	                        </tr>
+
+	                    </thead>
+
+	                    <tbody id="historyTableBody">
+
+	                        <tr>
+
+	                            <td colspan="4"
+	                                class="text-center text-muted">
+
+	                                No data
+
+	                            </td>
+
+	                        </tr>
+
+	                    </tbody>
+
+	                </table>
+
+	            </div>
+
+	            <div class="modal-footer">
+
+	                <button
+	                    type="button"
+	                    class="btn btn-secondary"
+	                    data-bs-dismiss="modal">
+
+	                    Close
+
+	                </button>
+
+	            </div>
+
+	        </div>
+
+	    </div>
+
+	</div>
+
+	<!-- ==========================================================
+     Modal: Stores
+	========================================================== -->
+	<div class="modal fade" id="storeModal" tabindex="-1">
+
+	    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+
+	        <div class="modal-content">
+
+	            <div class="modal-header">
+
+	                <h5 class="modal-title">
+	                    Store List
+	                </h5>
+
+	                <button
+	                    type="button"
+	                    class="btn-close"
+	                    data-bs-dismiss="modal">
+	                </button>
+
+	            </div>
+
+	            <div class="modal-body">
+
+<!-- 	                <div class="mb-3">
+
+	                    <label class="form-label">
+	                        Category
+	                    </label>
+
+	                    <input
+	                        type="text"
+	                        id="historyCategoryName"
+	                        class="form-control"
+	                        readonly>
+
+	                </div> -->
+
+	                <table
+	                    class="table table-bordered table-hover align-middle"
+	                    id="historyTable">
+
+	                    <thead class="table-light">
+	                        <tr>
+	                            <th style="width:50%">Store Name</th>
+	                            <th class="text-center">Action</th>
+	                        </tr>
+
+	                    </thead>
+
+	                    <tbody id="historyTableBody">
+	                        <tr>
+	                            <td colspan="4" class="text-center text-muted">
+	                                No data
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+
+	            <div class="modal-footer">
+	                <button
+	                    type="button"
+	                    class="btn btn-secondary"
+	                    data-bs-dismiss="modal">
+	                    Close
+	                </button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<script>
+		const categories=
+			[
+				{% for category in expense_categories %}
+					{
+						id:"{{category.category_id}}",
+						name:"{{category.category_name}}"
+					}, 
+				{% endfor %}
+			];
+	</script>
+
+	<script src="{{ url_for('static', filename='assets/js/expense.js') }}"></script>
+
+
+{% endblock %}

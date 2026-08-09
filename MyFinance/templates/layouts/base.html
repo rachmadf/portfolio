@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        MyFinance
+        {% endblock %}
+    </title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='assets/css/style.css') }}">
+
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
+
+    <!-- Bootstrap 5 Integration -->
+    <script src="https://cdn.datatables.net/2.3.3/js/dataTables.bootstrap5.min.js"></script>
+    
+
+
+    {% block css %}
+        <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ==========================
+         SIDEBAR
+    =========================== -->
+
+    {% include "includes/sidebar.html" %}
+
+    <!-- ==========================
+         MAIN CONTENT
+    =========================== -->
+
+    <main class="main">
+
+        <!-- ==========================
+             TOPBAR
+        =========================== -->
+
+        {% include "includes/topbar.html" %}
+
+        <!-- ==========================
+             PAGE CONTENT
+        =========================== -->
+
+        <div class="container-fluid py-4">
+
+            <!-- Flash Messages -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="alert alert-{{ category }} alert-dismissible fade show">
+
+                            {{ message }}
+
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="alert"></button>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+
+        <!-- ==========================
+             FOOTER
+        =========================== -->
+
+        {% include "includes/footer.html" %}
+
+    </main>
+
+</div>
+
+<!-- ==========================
+     LOADING MODAL
+========================== -->
+
+<div class="modal fade"
+     id="loadingModal"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 shadow">
+
+            <div class="modal-body text-center py-5">
+
+                <div class="spinner-border text-primary mb-3"
+                     style="width:3rem;height:3rem;"
+                     role="status">
+
+                    <span class="visually-hidden">
+                        Loading...
+                    </span>
+
+                </div>
+
+                <h5>Please wait...</h5>
+
+                <p class="text-muted mb-0">
+
+                    Processing your request.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================
+     BOOTSTRAP
+========================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ==========================
+     GLOBAL JS
+========================== -->
+
+<script src="{{ url_for('static', filename='assets/js/app.js') }}"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.datatables.net/v/bs5/dt-2.3.3/datatables.min.js"></script>
+
+
+
+<!-- ==========================
+     PAGE JS
+========================== -->
+
+{% block scripts %}
+
+{% endblock %}
+
+</body>
+
+</html>

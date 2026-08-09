@@ -1,0 +1,170 @@
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <i class="bi bi-wallet2"></i>
+            </div>
+
+            <div>
+
+                <h4>MyFinance</h4>
+                <small>Daily Operation</small>
+
+            </div>
+
+        </div>
+        <li class="nav-item">
+                <a class="nav-link active" href="#">
+                    <i class="bi bi-speedometer2"></i>
+                    Dashboard
+                </a>
+            </li>
+        <div class="menu-title">
+            REPORT
+        </div>
+
+        <ul class="nav flex-column">
+
+            
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('expense.view_monthly_report') }}">
+                    <i class="bi bi-file-earmark-minus-fill text-danger"></i>
+                    Expense Report
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-file-earmark-plus-fill text-success"></i>
+                    Income Report
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-calendar-month"></i>
+                    Monthly Report
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('expense.expense_plan') }}">
+                    <i class="bi bi-clipboard-data-fill text-warning"></i>
+                    Planning
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-bag-check-fill text-info"></i>
+                    Expense Item
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="menu-title">
+            DATA ENTRY
+        </div>
+
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-arrow-up-circle-fill text-success"></i>
+                    Income
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('expense.add_expense') }}">
+                    <i class="bi bi-arrow-down-circle-fill text-danger"></i>
+                    Expense
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-arrow-left-right text-primary"></i>
+                    Transfer
+                </a>
+            </li>
+        </ul>
+
+
+        <div class="menu-title">
+            MANAGE
+        </div>
+
+        <ul class="nav flex-column">
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-tags"></i>
+                    Categories
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-grid-3x3-gap-fill text-white"></i>
+                    Product Types
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-cart-fill text-warning"></i>
+                    Stores
+                </a>
+            </li>
+
+        </ul>
+
+
+
+        <div class="menu-title">
+            REPORTS
+        </div>
+
+        <ul class="nav flex-column">
+
+            
+
+        </ul>
+
+        <div class="menu-title">
+            SETTINGS
+        </div>
+
+        <ul class="nav flex-column">
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="user-box">
+
+            <img src="https://ui-avatars.com/api/?name=Admin" class="avatar">
+
+            <div>
+
+                <strong>Administrator</strong><br>
+                <small>System Admin</small>
+
+            </div>
+
+        </div>
+
+    </aside>

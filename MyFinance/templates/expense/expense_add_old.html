@@ -1,0 +1,540 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Expense Entry
+{% endblock %}
+
+{% block page_title %}
+Expense Entry
+{% endblock %}
+
+{% block breadcrumb %}
+Expense Entry
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-12">
+
+        <form id="expenseForm"
+              method="POST"
+              action="{{ url_for('expense_add') }}">
+
+            <!-- ==========================================
+                 RECEIPT INFORMATION
+            =========================================== -->
+
+            <div class="card shadow-sm border-0 mb-4">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h5 class="mb-0">
+
+                        <i class="bi bi-receipt me-2"></i>
+
+                        Receipt Information
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row g-3">
+
+                        <!-- Expense Date -->
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+
+                                Expense Date
+
+                            </label>
+
+                            <input
+                                type="date"
+                                class="form-control"
+                                name="expense_date"
+                                id="expense_date"
+                                required>
+
+                        </div>
+
+                        <!-- Store -->
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+
+                                Store
+
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="store_id"
+                                name="store_id"
+                                required>
+
+                                <option value="">
+
+                                    Select Store
+
+                                </option>
+
+                                {% for store in stores %}
+
+                                <option value="{{ store.store_id }}">
+
+                                    {{ store.store_name }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <!-- Payment Method -->
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+
+                                Payment Method
+
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="payment_method_id"
+                                name="payment_method_id"
+                                required>
+
+                                <option value="">
+
+                                    Select Payment Method
+
+                                </option>
+
+                                {% for payment in payment_methods %}
+
+                                <option value="{{ payment.payment_method_id }}">
+
+                                    {{ payment.payment_method_name }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <!-- Receipt Number -->
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+
+                                Receipt Number
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="receipt_number"
+                                name="receipt_number"
+                                maxlength="50"
+                                placeholder="Optional">
+
+                        </div>
+
+                        <!-- Notes -->
+
+                        <div class="col-12">
+
+                            <label class="form-label">
+
+                                Notes
+
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                rows="3"
+                                id="notes"
+                                name="notes"
+                                placeholder="Optional notes"></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ==========================================
+                 PURCHASED ITEMS
+            =========================================== -->
+
+            <div class="card shadow-sm border-0 mb-4">
+
+                <div class="card-header d-flex justify-content-between align-items-center">
+
+                    <h5 class="mb-0">
+
+                        <i class="bi bi-cart3 me-2"></i>
+
+                        Purchased Items
+
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        id="btnAddItem">
+
+                        <i class="bi bi-plus-circle"></i>
+
+                        Add Item
+
+                    </button>
+
+                </div>
+
+                <div class="card-body p-0">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle mb-0"
+                               id="expenseTable">
+
+                            <thead class="table-light">
+
+                                <tr>
+
+                                    <th width="180">
+
+                                        Category
+
+                                    </th>
+
+                                    <th>
+
+                                        Item Name
+
+                                    </th>
+
+                                    <th width="140">
+
+                                        Brand
+
+                                    </th>
+
+                                    <th width="100">
+
+                                        Size
+
+                                    </th>
+
+                                    <th width="90">
+
+                                        Qty
+
+                                    </th>
+
+                                    <th width="140">
+
+                                        Unit Price
+
+                                    </th>
+
+                                    <th width="140">
+
+                                        Subtotal
+
+                                    </th>
+
+                                    <th width="60">
+
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="expenseItems">
+
+                                <!-- Dynamic rows generated by expense.js -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+                        <!-- ==========================================
+                 TRANSACTION SUMMARY
+            =========================================== -->
+
+            <div class="card shadow-sm border-0 mb-4">
+
+                <div class="card-header bg-light">
+
+                    <h5 class="mb-0">
+
+                        <i class="bi bi-calculator me-2"></i>
+
+                        Transaction Summary
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row g-3">
+
+                        <!-- Total Items -->
+
+                        <div class="col-md-3">
+
+                            <div class="card border-primary">
+
+                                <div class="card-body text-center">
+
+                                    <div class="text-muted small">
+
+                                        Total Items
+
+                                    </div>
+
+                                    <h3 id="totalItems"
+                                        class="mb-0">
+
+                                        0
+
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Total Quantity -->
+
+                        <div class="col-md-3">
+
+                            <div class="card border-success">
+
+                                <div class="card-body text-center">
+
+                                    <div class="text-muted small">
+
+                                        Total Quantity
+
+                                    </div>
+
+                                    <h3 id="totalQuantity"
+                                        class="mb-0">
+
+                                        0
+
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Discount -->
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+
+                                Discount
+
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control text-end"
+                                id="discount"
+                                name="discount"
+                                value="0"
+                                min="0"
+                                step="0.01">
+
+                        </div>
+
+                        <!-- Grand Total -->
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+
+                                Grand Total
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control text-end fw-bold"
+                                id="grandTotal"
+                                value="0.00"
+                                readonly>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ==========================================
+                 HIDDEN JSON DATA
+            =========================================== -->
+
+            <input
+                type="hidden"
+                id="expense_details"
+                name="expense_details">
+
+            <!-- ==========================================
+                 ACTION BUTTONS
+            =========================================== -->
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-end gap-2">
+
+                        <a href="{{ url_for('dashboard') }}"
+                           class="btn btn-secondary">
+
+                            <i class="bi bi-x-circle me-1"></i>
+
+                            Cancel
+
+                        </a>
+
+                        <button
+                            type="reset"
+                            class="btn btn-warning"
+                            id="btnReset">
+
+                            <i class="bi bi-arrow-clockwise me-1"></i>
+
+                            Reset
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-success"
+                            id="btnSave">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            Save Expense
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     SAVE CONFIRMATION MODAL
+========================================== -->
+
+<div class="modal fade"
+     id="saveExpenseModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Confirm Transaction
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                Are you sure you want to save this expense transaction?
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    id="confirmSave">
+
+                    Save
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="{{ url_for('static',
+                        filename='js/expense.js') }}"></script>
+
+{% endblock %}

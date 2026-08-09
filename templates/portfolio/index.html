@@ -1,0 +1,155 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Portfolio Applications
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- Page Header -->
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold">
+            Portfolio Applications
+        </h2>
+
+        <p class="text-muted">
+
+            A collection of software applications developed
+            using Python, Flask, SQLite, Machine Learning,
+            and Data Science technologies.
+
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <!-- OCR -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+
+                        OCR Text Extractor
+
+                    </h5>
+
+                    <p class="card-text">
+
+                        Extract printed text from image files
+                        using PaddleOCR and export the result
+                        as a TXT file.
+
+                    </p>
+
+                </div>
+
+                <div class="card-footer bg-white border-0">
+
+                    <a
+                        href="{{ url_for('ocr.index') }}"
+                        class="btn btn-primary w-100">
+
+                        Open Application
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MyFinance -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+
+                        MyFinance
+
+                    </h5>
+
+                    <p class="card-text">
+
+                        Personal expense management system
+                        with receipt tracking, reports,
+                        and category management.
+
+                    </p>
+
+                </div>
+
+                <div class="card-footer bg-white border-0">
+
+                    <button
+                        class="btn btn-outline-secondary w-100"
+                        disabled>
+
+                        Coming Soon
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CSV Analyzer -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+
+                        CSV Analyzer
+
+                    </h5>
+
+                    <p class="card-text">
+
+                        Upload CSV datasets and perform
+                        descriptive statistical analysis
+                        with downloadable results.
+
+                    </p>
+
+                </div>
+
+                <div class="card-footer bg-white border-0">
+
+                    <button
+                        class="btn btn-outline-secondary w-100"
+                        disabled>
+
+                        Coming Soon
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

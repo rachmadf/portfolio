@@ -1,0 +1,406 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Expense Monthly Report{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================================== -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">
+                Expense Monthly Report
+            </h2>
+            <small class="text-muted">
+                Monthly expense analysis and transaction summary
+            </small>
+        </div>
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- FILTER -->
+    <!-- ===================================================== -->
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-header bg-primary text-white">
+            Report Filter
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-3">
+                    <label class="form-label">Year</label>
+
+                    <select class="form-select" id="year" name="year">
+                        {% for year in years %}
+                        <option
+                            value="{{ year }}"
+                            {% if year == selected_year %}selected{% endif %}
+                        >
+                            {{ year }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Month
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="month"
+                        name="month">
+
+                        {% for month in months %}
+
+                        <option
+                            value="{{ month.value }}"
+                            {% if month.value == selected_month %}selected{% endif %}
+                        >
+                            {{ month.name }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <button
+                        class="btn btn-primary w-100"
+                        id="btnGenerate">
+
+                        <i class="bi bi-search"></i>
+                        Generate Report
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===================================================== -->
+    <!-- SUMMARY -->
+    <!-- ===================================================== -->
+
+    <div class="row mb-4">
+
+        <!-- Total Expense -->
+
+        <div class="col-lg-4 mb-3">
+
+            <div class="card shadow-sm border-start border-danger border-4 h-100">
+
+                <div class="card-body">
+
+                    <div class="text-muted small">
+                        Total Expense
+                    </div>
+
+                    <h3 class="fw-bold text-danger mt-2">
+                        Rp {{ "{:,.0f}".format(total_expense).replace(",", ".") }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Highest Expense Category -->
+
+        <div class="col-lg-4 mb-3">
+
+            <div class="card shadow-sm border-start border-warning border-4 h-100">
+
+                <div class="card-body">
+
+                    <div class="text-muted small">
+                        Highest Expense Category
+                    </div>
+
+                    <h5 class="fw-bold mt-2">
+                        {{ highest_category }}
+                    </h5>
+
+                    <h4 class="text-warning">
+                        Rp {{ "{:,.0f}".format(highest_category_total).replace(",", ".") }}
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Highest Transaction -->
+
+        <div class="col-lg-4 mb-3">
+
+            <div class="card shadow-sm border-start border-success border-4 h-100">
+
+                <div class="card-body">
+
+                    <div class="text-muted small">
+                        Highest Transaction
+                    </div>
+
+                    <h5 class="fw-bold mt-2">
+                        Store: {{ highest_transaction_store }}
+                    </h5>
+
+                    <h4 class="text-success">
+                        Rp {{ "{:,.0f}".format(highest_transaction_amount).replace(",", ".") }}
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===================================================== -->
+    <!-- CATEGORY AGGREGATION -->
+    <!-- ===================================================== -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+            Expense Category Aggregation
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-lg-6">
+
+                    <h6 class="text-center mb-3">
+                        Category Total
+                    </h6>
+
+                    <div style="height:350px;">
+                        <canvas id="expenseBarChart"></canvas>
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    <h6 class="text-center mb-3">
+                        Category Composition
+                    </h6>
+
+                    <div style="height:350px;">
+                        <canvas id="expenseDoughnutChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===================================================== -->
+    <!-- DAILY TREND -->
+    <!-- ===================================================== -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+            Daily Expense Trend
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="chart-container" style="height:350px;">
+                <canvas id="dailyExpenseTrendChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- ===================================================== -->
+    <!-- TRANSACTION TABLE -->
+    <!-- ===================================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-primary text-white">
+
+            Detailed Expense Transactions
+
+        </div>
+
+        <div class="card-body">
+
+            <!-- <div class="row mb-3">
+
+                <div class="col-md-4 ms-auto">
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search transaction...">
+
+                </div>
+
+            </div> -->
+
+
+            <div class="table-responsive">
+
+                <table
+                    id="expenseTransactionTable"
+                    class="table table-striped table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Store</th>
+                            <th>Category</th>
+                            <th>Item</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-end">Unit Price</th>
+                            <th class="text-end">Subtotal</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for trx in transactions %}
+
+                            <tr>
+
+                                <td>{{ trx.date }}</td>
+
+                                <td>{{ trx.store }}</td>
+
+                                <td>{{ trx.category }}</td>
+
+                                <td>{{ trx.item_name }}</td>
+
+                                <td class="text-center">{{ trx.quantity }}</td>
+
+                                <td class="text-end">
+                                    Rp {{ "{:,.0f}".format(trx.unit_price).replace(",", ".") }}
+                                </td>
+
+                                <td class="text-end fw-semibold">
+                                    Rp {{ "{:,.0f}".format(trx.subtotal).replace(",", ".") }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<!-- POPULATED MONTH DROPDOWN FILTER -->
+<script>
+    const yearSelect = document.getElementById("year");
+    const monthSelect = document.getElementById("month");
+
+    yearSelect.addEventListener("change", async function () {
+
+        const year = this.value;
+
+        const response = await fetch(`/api/report/months/${year}`);
+
+
+        const months = await response.json();
+
+        monthSelect.innerHTML = "";
+
+        months.forEach(month => {
+
+            monthSelect.innerHTML += `
+                <option value="${month.value}">
+                    ${month.name}
+                </option>
+            `;
+
+        });
+
+    });
+</script>
+
+<!-- GENERATE REPORT BASE SELECTED YEAR AND MONTH -->
+<script>
+    const reportUrl = "{{ url_for('expense.expense_monthly') }}";
+    
+    document.getElementById("btnGenerate").addEventListener("click", function () {
+
+        const year = document.getElementById("year").value;
+        const month = document.getElementById("month").value;
+
+        window.location.href =
+            `${reportUrl}?year=${year}&month=${month}`;
+
+    });
+</script>
+
+<!-- BAR CHART & DOUGHNUT CHART -->
+
+<!-- <script>const categorySummary = {{ category_summary|tojson }};</script> -->
+<script>
+    const categorySummary = {{ category_summary|tojson }};
+    const dailyTrend = {{ daily_trend|tojson }};
+</script>
+
+<script src="{{ url_for('static', filename='assets/js/expense_report.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='assets/js/app.js') }}"></script> -->
+
+{% endblock %}

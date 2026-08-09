@@ -1,0 +1,209 @@
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="sidebar shadow-sm">
+
+    <!-- Logo -->
+
+    <div class="sidebar-header">
+
+        <a href="{{url_for('index')}}"
+           class="sidebar-brand text-decoration-none">
+
+            <i class="bi bi-wallet2 me-2"></i>
+
+            <span>MyFinance</span>
+
+        </a>
+
+    </div>
+
+    <!-- Navigation -->
+
+    <nav class="sidebar-nav">
+
+        <ul class="nav flex-column">
+
+            <!-- Dashboard -->
+
+            <li class="nav-item">
+
+                <a href="{{url_for('index')}}"
+                   class="nav-link {% if active_page=='dashboard' %}active{% endif %}">
+
+                    <i class="bi bi-speedometer2"></i>
+
+                    <span>Dashboard x</span>
+
+                </a>
+
+            </li>
+
+            <!-- Divider -->
+
+            <li class="nav-divider">
+                <span>TRANSACTIONS</span>
+            </li>
+
+            <!-- Expense -->
+
+            <li class="nav-item">
+
+                <a href="{{ url_for('expense.add_expense') }}"
+                   class="nav-link {% if active_page=='expense' %}active{% endif %}">
+
+                    <i class="bi bi-cart-dash"></i>
+
+                    <span>Expense</span>
+
+                </a>
+
+            </li>
+
+            <!-- Income -->
+
+            <li class="nav-item">
+
+                <a href="#"
+                   class="nav-link {% if active_page=='income' %}active{% endif %}">
+
+                    <i class="bi bi-cart-plus"></i>
+
+                    <span>Income</span>
+
+                </a>
+
+            </li>
+
+            <!-- Divider -->
+
+            <li class="nav-divider">
+                <span>REPORTS</span>
+            </li>
+
+            <!-- Expense Report -->
+
+            <li class="nav-item">
+
+                <a href="#"
+                   class="nav-link {% if active_page=='expense_report' %}active{% endif %}">
+
+                    <i class="bi bi-receipt"></i>
+
+                    <span>Expense Report</span>
+
+                </a>
+
+            </li>
+
+            <!-- Income Report -->
+
+            <li class="nav-item">
+
+                <a href="#"
+                   class="nav-link {% if active_page=='income_report' %}active{% endif %}">
+
+                    <i class="bi bi-bar-chart"></i>
+
+                    <span>Income Report</span>
+
+                </a>
+
+            </li>
+
+            <!-- Divider -->
+
+            <li class="nav-divider">
+                <span>MASTER DATA</span>
+            </li>
+
+            <!-- Stores -->
+
+            <li class="nav-item">
+
+                <a href="#"
+                   class="nav-link {% if active_page=='stores' %}active{% endif %}">
+
+                    <i class="bi bi-shop"></i>
+
+                    <span>Stores</span>
+
+                </a>
+
+            </li>
+
+            <!-- Categories -->
+
+            <li class="nav-item">
+
+                <a href="#"
+                   class="nav-link {% if active_page=='expense_categories' %}active{% endif %}">
+
+                    <i class="bi bi-tags"></i>
+
+                    <span>Expense Categories</span>
+
+                </a>
+
+            </li>
+
+            <!-- Payment Methods -->
+
+            <li class="nav-item">
+
+                <a href="#"
+                   class="nav-link {% if active_page=='payment_methods' %}active{% endif %}">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    <span>Payment Methods</span>
+
+                </a>
+
+            </li>
+
+            <!-- Divider -->
+
+            <li class="nav-divider">
+                <span>SYSTEM</span>
+            </li>
+
+            <!-- Settings -->
+
+            <li class="nav-item">
+
+                <a href="#"
+                   class="nav-link {% if active_page=='settings' %}active{% endif %}">
+
+                    <i class="bi bi-gear"></i>
+
+                    <span>Settings</span>
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <!-- Footer -->
+
+    <div class="sidebar-footer">
+
+        <div class="small text-muted">
+
+            MyFinance
+
+        </div>
+
+        <div class="small text-muted">
+
+            Version 1.0
+
+        </div>
+
+    </div>
+
+</aside>

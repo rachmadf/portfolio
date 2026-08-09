@@ -1,0 +1,117 @@
+myfinance/
+│
+│
+├── assets/
+│   ├── css/
+│   │      style.css
+│   │
+│   ├── js/
+│   │      app.js
+│   │
+│   └── img/
+│
+├── database/
+│     ├── create_database.py
+│     └── myfinance.db
+
+├── templates/
+│	│
+│	├── layouts/
+│	│      base.html
+│	│
+│	├── includes/
+│	│      sidebar.html
+│	│      topbar.html
+│	│      footer.html
+│	│
+│	└── expense/
+│	       expense_add.html
+
+
+daily progress
+2026-07-20 14:36 - 14:55
+develop expense.html page
+
+Phase 1: database --OK
+Phase 2: UI template layout
+	- layouts/base.html (completed)
+	- includes/sidebar.html (completed)
+	- includes/topbar.html (complete)
+	- includes/footer.html (completed)
+
+Phase 3: Expense UI
+	- expense_add.html (completed)
+
+Phase 4: Expense Logic
+	- expense.js (completed)
+
+Phase 5: Backend Integration
+	- css
+	- Flask Route
+	- SQLite CRUD
+
+
+Flask Route + SQLite CRUD
+Recommended Generation Order
+
+We'll generate one complete file at a time, following the same approach that worked for the frontend:
+
+✅	 models/expense_models.py
+✅	 MyFinance/database.py
+✅	 repositories/expense_repository.py
+	services/expense_service.py
+	routes/expense.py
+
+Phase 7 : Integration
+
+🔄 app.py
+⬜ config.py
+⬜ schema.sql
+⬜ database_initializer.py
+⬜ seed_data.py
+⬜ Application Startup
+⬜ End-to-End Testing
+
+PROJECT FOLDER STRUCTURE RECOMMENDATION
+-----------------------------------------
+myfinance/
+
+app.py
+
+config.py
+
+database.py
+
+instance/
+    myfinance.db
+
+models/
+    expense_model.py
+    income_model.py
+    master_model.py
+
+repositories/
+    expense_repository.py
+    income_repository.py
+    master_repository.py
+
+services/
+    expense_service.py
+    income_service.py
+    report_service.py
+
+routes/
+    dashboard.py
+    expense.py
+    income.py
+    report.py
+    settings.py
+
+templates/
+static/
+	assets/
+		css/
+			style.css
+		js/
+			app.js
+			expense.js

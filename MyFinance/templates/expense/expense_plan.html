@@ -1,0 +1,408 @@
+{% extends "layouts/base.html" %}
+{% block title %}Expense Plan{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
+{% block content %}
+	{% with messages=get_flashed_messages(with_categories=true) %}
+		{% for category,message in messages %}
+			<div class="alert alert-{{category}} alert-dismissible fade show">
+				{{message}}
+				<button class="btn-close" data-bs-dismiss="alert"></button>
+			</div>
+		{% endfor %}
+	{% endwith %}
+
+	<div class="card border-0 shadow-sm rounded-4 mb-3">
+	    <div class="card-body">
+	        <h3 class="fw-bold mb-1">{{page_title}}</h3>
+	        <p class="text-muted mb-0">
+	            {{page_subtitle}}
+	        </p>
+	    </div>
+	</div>
+
+	<!-- KPI Cards -->
+	<div class="row g-3 mb-4" id="kpiCards">
+
+	    <!-- Monthly Budget -->
+	    <div class="col-xl-3 col-lg-6 col-md-6">
+	        <div class="card border-0 shadow-sm rounded-4 h-100">
+	            <div class="card-body d-flex align-items-start">
+
+	                <div class="bg-primary bg-opacity-100 rounded-3 p-2 me-3 mt-1">
+	                    <i class="bi bi-wallet2 fs-2 text-white"></i>
+	                </div>
+
+	                <div>
+	                    <small class="text-muted">Monthly Budget</small>
+
+	                    <h4 class="fw-bold mb-1" id="monthlyBudget">
+	                        Rp {{ "{:,.0f}".format(monthly_budget) | replace(",", ".") }}
+	                    </h4>
+
+	                    <button
+						    class="btn btn-sm btn-outline-primary rounded-pill mt-2"
+						    data-bs-toggle="modal"
+						    data-bs-target="#budgetModal">
+
+						    <i class="bi bi-pencil-square me-1"></i>
+						    Edit Budget
+
+						</button>
+	                </div>
+
+	            </div>
+	        </div>
+	    </div>
+
+	    <!-- Current Plan -->
+	    <div class="col-xl-3 col-lg-6 col-md-6">
+	        <div class="card border-0 shadow-sm rounded-4 h-100">
+
+	            <div class="card-body d-flex align-items-start">
+
+	                <div class="bg-success bg-opacity-100 rounded-3 p-2 me-3 mt-1">
+	                    <i class="bi bi-cart-check fs-2 text-white"></i>
+	                </div>
+
+	                <div>
+
+	                    <small class="text-muted">
+	                        Current Plan
+	                    </small>
+
+	                    <h4 class="fw-bold text-success mb-1"
+	                        id="planTotal">
+	                        Rp 0
+	                    </h4>
+
+	                    <small class="text-muted">
+	                        <span id="planItemCount">0</span> Items
+	                    </small>
+
+	                </div>
+
+	            </div>
+
+	        </div>
+	    </div>
+
+	    <!-- Remaining Budget -->
+	    <div class="col-xl-3 col-lg-6 col-md-6">
+	        <div class="card border-0 shadow-sm rounded-4 h-100">
+	            <div class="card-body">
+	                <div class="d-flex align-items-start">
+	                    <div class="bg-warning bbg-opacity-100 rounded-3 p-2 me-3 mt-1">
+	                        <i class="bi bi-pie-chart fs-2 text-white"></i>
+	                    </div>
+
+	                    <div class="flex-grow-1">
+	                        <small class="text-muted">
+	                            Remaining Budget
+	                        </small>
+	                        <h4 class="fw-bold text-warning mb-2"
+	                            id="remainingBudget">
+	                            Rp {{ "{:,.0f}".format(remaining_budget) | replace(",", ".") }}
+	                        </h4>
+
+	                        <div class="progress"
+	                             style="height:8px;">
+
+	                            <div class="progress-bar bg-success"
+	                                 id="budgetProgress"
+	                                 style="width:0%">
+	                            </div>
+
+	                        </div>
+
+	                        <small class="text-muted"
+	                               id="budgetPercent">
+
+	                            100% Remaining
+
+	                        </small>
+
+	                    </div>
+
+	                </div>
+
+	            </div>
+
+	        </div>
+
+	    </div>
+
+	    <!-- Comparison -->
+	    <div class="col-xl-3 col-lg-6 col-md-6">
+	        <div class="card border-0 shadow-sm rounded-4 h-100">
+	            <div class="card-body d-flex align-items-start">
+	                <div class="bg-info bg-opacity-90 rounded-3 p-2 me-3 mt-1">
+	                    <i class="bi bi-graph-up-arrow fs-2 text-white"></i>
+	                </div>
+
+	                <div>
+	                    <small class="text-muted">
+	                        Vs Last Month
+	                    </small>
+	                    <h4 class="fw-bold mb-1"
+	                        id="comparisonAmount">
+
+	                        + Rp 0
+
+	                    </h4>
+
+	                    <small id="comparisonPercent"
+	                           class="text-success">
+
+	                        ↑ 0%
+
+	                    </small>
+
+	                </div>
+
+	            </div>
+
+	        </div>
+
+	    </div>
+
+	</div>
+
+	<!-- ==================================================== -->
+	<!-- 2ND SECTION: PLANNING SECTION -->
+	<!-- ==================================================== -->
+	<div class="row mb-2" id="planningSection">
+		<div class="col-md-8">
+			<!-- -------------------------------------------- -->
+			<!-- ITEM FILTER -->
+			<!-- -------------------------------------------- -->
+			<div class="card border-0 shadow-sm rounded-4 mb-3" id="itemFilter">
+
+			    <div class="card-body">
+
+			        <div class="row align-items-center g-3">
+
+			            <!-- Title -->
+			            <div class="col-xl-2 col-lg-3">
+
+			                <h5 class="fw-semibold mb-0">
+			                    <i class="bi bi-funnel text-primary me-2"></i>
+			                    Item Filter
+			                </h5>
+
+			            </div>
+
+			            <!-- Category -->
+			            <div class="col-xl-3">
+						    <!-- <label class="form-label">
+						        Category
+						    </label> -->
+						    <div class="input-group">
+						        <input
+						            type="text"
+						            id="category_name"
+						            class="form-control"
+						            placeholder="Select category..."
+						            readonly>
+						        <input
+						            type="hidden"
+						            id="category_id"
+						            name="category_id">
+						        <button
+						            class="btn btn-outline-primary"
+						            type="button"
+						            data-bs-toggle="modal"
+						            data-bs-target="#categoryModal">
+						            <i class="bi bi-list-ul"></i>
+						        </button>
+						    </div>
+						</div>
+
+			            <!-- Store -->
+			            <div class="col-xl-3">
+						    <!-- <label class="form-label">
+						        Store
+						    </label> -->
+						    <div class="input-group">
+						        <input
+						            type="text"
+						            id="store_name"
+						            class="form-control"
+						            placeholder="Select store..."
+						            readonly>
+						        <input
+						            type="hidden"
+						            id="store_id"
+						            name="store_id">
+						        <button
+						            class="btn btn-outline-success"
+						            type="button"
+						            data-bs-toggle="modal"
+						            data-bs-target="#storeModal">
+						            <i class="bi bi-shop"></i>
+						        </button>
+						    </div>
+						</div>
+
+			            <!-- Search -->
+			            <div class="col-xl-3 col-lg-8">
+
+			                <div class="input-group">
+
+			                    <span class="input-group-text">
+			                        <i class="bi bi-search"></i>
+			                    </span>
+
+			                    <input
+			                        type="text"
+			                        class="form-control"
+			                        id="txtSearchItem"
+			                        placeholder="Search item...">
+
+			                </div>
+
+			            </div>
+
+			            <!-- Reset -->
+			            <div class="col-xl-1 col-lg-4 d-grid">
+
+			                <button
+			                    class="btn btn-outline-secondary"
+			                    id="btnResetFilter">
+
+			                    <i class="bi bi-arrow-clockwise me-1"></i>
+			                    
+
+			                </button>
+
+			            </div>
+
+			        </div>
+
+			    </div>
+
+			</div>
+			
+			<div class="row g-3 align-items-stretch">
+				<!-- -------------------------------------------- -->
+				<!-- AVAILABLE ITEM -->
+				<!-- -------------------------------------------- -->
+				<div class="col-md-6">
+
+				    <div class="card border-0 shadow-sm rounded-4 h-100" id="availableItemCard">
+
+				    	<!-- AVAILABLE ITEM: CARD HEADER -->	
+				        <div class="card-header bg-white border-0">
+				            <div class="d-flex justify-content-between align-items-center">
+				                <h5 class="fw-semibold mb-0">
+				                    <i class="bi bi-box-seam text-primary me-2"></i>
+				                    Available Items
+				                </h5>
+				                <span
+				                    class="badge bg-primary"
+				                    id="availableItemCount">
+				                    0 Items
+				                </span>
+				            </div>
+				        </div>
+
+				        <!-- AVAILABLE ITEM: CARD BODY -->
+				        <div class="card-body p-0">
+					        <div
+					            id="availableItemList"
+					            class="list-group list-group-flush"
+					            style="max-height:550px; overflow-y:auto;">
+					        </div>
+    					</div>
+				        <!-- end of: AVAILABLE ITEM CARD BODY -->
+
+				    </div>
+				    <!-- end of: AVAILABLE ITEM CARD -->
+
+				</div>
+
+				<!-- --------------------------------------------- -->
+				<!-- CURRENT PLAN -->
+				<!-- -------------------------------------------- -->
+				<div class="col-md-6">
+					
+					<div class="card border-0 shadow-sm rounded-4 h-100" id="currentPlanCard">
+
+						<!-- CURRENT PLAN: CARD HEADER -->
+				        <div class="card-header bg-white border-0">
+				            <div class="d-flex justify-content-between align-items-center">
+				                <h5 class="fw-semibold mb-0">
+	                    			<i class="bi bi-cart-check text-primary me-2"></i>
+				                    Current Plan
+	                			</h5>
+				                <span
+				                    class="badge bg-success"
+				                    id="currentPlanCount">
+				                    0 Items
+				                </span>
+	            			</div>
+	        			</div>
+
+	        			<!-- CURRENT PLAN: CARD BODY -->
+	        			<div class="card-body p-0">
+				            
+				            <div id="currentPlanList" class="list-group list-group-flush">
+
+						    </div>
+	        			</div>
+
+	        			<!-- CURRENT PLAN: CARD FOOTER -->
+				        <!-- <div class="card-footer bg-success bg-opacity-10">
+				            <div class="d-flex justify-content-between">
+				                <strong>Estimated Total</strong>
+				                <h4
+				                    class="text-success mb-0"
+				                    id="estimatedTotal">
+				                    Rp 0
+				                </h4>
+				            </div>
+				        </div> -->
+	    			</div>
+				</div>
+				<!-- end of current plan -->
+			</div>
+			
+
+			
+
+		</div>
+
+		<div class="col-md-4" id="currentPlanSummary">
+			<!-- use card, sticky panel -->
+		</div>
+	
+	</div>
+	<!-- end of 2nd section -->
+
+
+
+	<div class="row mb-2">
+		<div class="col-md-6" id="comparisonPreviousMonth">
+			
+		</div>
+		<div class="col-md-6" id="categorySummaryPlan">
+			
+		</div>
+	</div>
+
+	{% include "includes/modals/category_modal.html" %}
+	{% include "includes/modals/store_modal.html" %}
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    const AVAILABLE_ITEMS_URL =
+        "{{ url_for('expense.get_available_items') }}";
+</script>
+
+<script src="{{ url_for('static', filename='assets/js/category_modal.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/store_modal.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/expense.js') }}"></script>
+
+{% endblock %}

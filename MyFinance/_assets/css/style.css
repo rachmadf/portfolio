@@ -1,0 +1,522 @@
+:root{
+
+    --sidebar-width:270px;
+
+    --sidebar-bg:#162232;
+
+    --primary:#2f80ed;
+
+    --success:#22c55e;
+
+    --danger:#ef4444;
+
+    --body:#f4f7fb;
+
+    --card:#ffffff;
+
+    --border:#e5e7eb;
+
+    --text:#1f2937;
+
+    --muted:#94a3b8;
+
+}
+
+*{
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    margin:0;
+
+    background:var(--body);
+
+    font-family:Inter,Segoe UI,Roboto,sans-serif;
+
+    color:var(--text);
+
+}
+
+.wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+/* Sidebar */
+
+.sidebar{
+
+    width:var(--sidebar-width);
+
+    background:var(--sidebar-bg);
+
+    color:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:fixed;
+
+    top:0;
+
+    bottom:0;
+
+    left:0;
+
+    overflow-y:auto;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:28px;
+
+}
+
+.logo-icon{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:12px;
+
+    background:#3dbb64;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+}
+
+.logo h4{
+
+    margin:0;
+
+    font-weight:700;
+
+}
+
+.logo small{
+
+    color:#9fb3c8;
+
+}
+
+.menu-title{
+
+    color:#7b8ea7;
+
+    font-size:12px;
+
+    padding:18px 28px 8px;
+
+    letter-spacing:1px;
+
+}
+
+.sidebar .nav-link{
+
+    color:#d8e1ea;
+
+    margin:3px 16px;
+
+    border-radius:12px;
+
+    padding:13px 18px;
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+
+}
+
+.sidebar .nav-link:hover{
+
+    background:#24364b;
+
+}
+
+.sidebar .nav-link.active{
+
+    background:#2f80ed;
+
+    color:white;
+
+}
+
+.user-box{
+
+    margin-top:auto;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    padding:20px;
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+
+}
+
+.avatar{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+}
+
+/* Main */
+
+.main{
+
+    margin-left:var(--sidebar-width);
+
+    width:calc(100% - var(--sidebar-width));
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* Topbar */
+
+.topbar{
+
+    background:white;
+
+    padding:18px 30px;
+
+    border-bottom:1px solid var(--border);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+.page-title{
+
+    margin:0;
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+/* Cards */
+
+.card{
+
+    border:none;
+
+    border-radius:16px;
+
+    box-shadow:0 4px 16px rgba(0,0,0,.05);
+
+}
+
+.card-header{
+
+    background:white;
+
+    border-bottom:1px solid var(--border);
+
+    font-weight:600;
+
+}
+
+/* Footer */
+
+.footer{
+
+    margin-top:auto;
+
+    background:white;
+
+    border-top:1px solid var(--border);
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#6b7280;
+
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+.sidebar{
+
+    width:90px;
+
+}
+
+.sidebar h4,
+.sidebar small,
+.menu-title,
+.sidebar .nav-link span,
+.user-box div{
+
+    display:none;
+
+}
+
+.main{
+
+    margin-left:90px;
+
+    width:calc(100% - 90px);
+
+}
+
+.logo{
+
+    justify-content:center;
+
+}
+
+.user-box{
+
+    justify-content:center;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.sidebar{
+
+    display:none;
+
+}
+
+.main{
+
+    margin-left:0;
+
+    width:100%;
+
+}
+
+.topbar{
+
+    padding:15px;
+
+}
+
+.page-title{
+
+    font-size:24px;
+
+}
+
+}
+
+/* ==========================================================
+   EXPENSE MODULE
+========================================================== */
+
+/* ---------- Card ---------- */
+
+.card {
+    border-radius: 0.75rem;
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+
+/* ---------- Form ---------- */
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: .45rem;
+}
+
+.form-control,
+.form-select {
+    min-height: 42px;
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+
+/* ---------- Table ---------- */
+
+#expenseTable {
+    margin-bottom: 0;
+}
+
+#expenseTable thead th {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+#expenseTable tbody td {
+    vertical-align: middle;
+}
+
+#expenseTable tbody tr:hover {
+    background-color: rgba(13,110,253,.04);
+}
+
+#expenseTable input,
+#expenseTable select {
+    min-width: 100%;
+}
+
+#expenseTable .qty,
+#expenseTable .unit-price,
+#expenseTable .subtotal {
+    text-align: right;
+}
+
+
+/* ---------- Remove Button ---------- */
+
+.remove-row {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+}
+
+
+/* ---------- Summary Cards ---------- */
+
+.card.border-primary,
+.card.border-success {
+    transition: .2s ease;
+}
+
+.card.border-primary:hover,
+.card.border-success:hover {
+    transform: translateY(-2px);
+}
+
+#totalItems,
+#totalQuantity {
+    font-weight: 700;
+}
+
+#grandTotal {
+    font-weight: 700;
+    color: #198754;
+    background: #f8f9fa;
+}
+
+
+/* ---------- Action Buttons ---------- */
+
+.card:last-child .btn {
+    min-width: 120px;
+}
+
+
+/* ---------- Validation ---------- */
+
+.is-invalid {
+    border-color: #dc3545;
+}
+
+.is-valid {
+    border-color: #198754;
+}
+
+
+/* ---------- Loading State ---------- */
+
+.loading {
+    opacity: .6;
+    pointer-events: none;
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 992px) {
+
+    #expenseTable {
+        min-width: 1100px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .card-header h5 {
+        font-size: 1rem;
+    }
+
+    #grandTotal {
+        font-size: 1rem;
+    }
+
+    .card:last-child .d-flex {
+        flex-direction: column;
+    }
+
+    .card:last-child .btn {
+        width: 100%;
+    }
+
+}
+
+
+/* ---------- Print ---------- */
+
+@media print {
+
+    .sidebar,
+    .topbar,
+    footer,
+    .btn,
+    .modal {
+        display: none !important;
+    }
+
+    .main {
+        margin: 0;
+        padding: 0;
+    }
+
+    .card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+    }
+
+}
