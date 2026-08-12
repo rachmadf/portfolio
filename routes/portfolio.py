@@ -14,3 +14,9 @@ def index():
     return render_template(
         "/portfolio/index.html"
     )
+
+@portfolio.route("/ncsis", methods=["GET"])
+def ncsis():
+    return render_template(
+        "/portfolio/ncsis/index.html"
+    )

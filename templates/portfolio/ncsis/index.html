@@ -1,0 +1,305 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}ncsis — Internal Audit Management Information System{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/ncsis.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="ncsis-page">
+
+    <!-- Hero -->
+    <section class="ncsis-hero">
+        <div class="container-fluid">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-5">
+                    <span class="ncsis-eyebrow">ENTERPRISE WEB APPLICATION</span>
+                    <h1>ncsis</h1>
+                    <h2>Internal Audit Management Information System</h2>
+                    <p class="ncsis-lead">
+                        A role-based web application supporting internal audit operations,
+                        audit findings, OTS case management, follow-up activities,
+                        scoring, notifications, organizational scope management,
+                        and management dashboards.
+                    </p>
+
+                    <div class="ncsis-tags">
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>SQLAlchemy</span>
+                        <span>SQLite</span>
+                        <span>MySQL</span>
+                        <span>Bootstrap</span>
+                        <span>Chart.js</span>
+                    </div>
+
+                    <div class="ncsis-actions">
+                        <a href="#ncsis-screenshots" class="btn btn-primary">
+                            View Screenshots
+                        </a>
+                        <a href="#ncsis-architecture" class="btn btn-outline-secondary">
+                            View Architecture
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="ncsis-hero-image">
+                        <img src="{{ url_for('static', filename='uploads/ncsis/dashboard-compliance.png') }}"
+                             alt="ncsis Executive Compliance Dashboard">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="ncsis-section">
+        <div class="container-fluid">
+            <div class="ncsis-section-heading">
+                <h2>Project Overview</h2>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4 col-xl-2">
+                    <div class="ncsis-info-card">
+                        <span class="ncsis-card-label">Application Type</span>
+                        <strong>Enterprise Web Application</strong>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-2">
+                    <div class="ncsis-info-card">
+                        <span class="ncsis-card-label">Backend</span>
+                        <strong>Python / Flask</strong>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-2">
+                    <div class="ncsis-info-card">
+                        <span class="ncsis-card-label">Architecture</span>
+                        <strong>Layered Architecture</strong>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-2">
+                    <div class="ncsis-info-card">
+                        <span class="ncsis-card-label">Database</span>
+                        <strong>MySQL → SQLite</strong>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-2">
+                    <div class="ncsis-info-card">
+                        <span class="ncsis-card-label">Access</span>
+                        <strong>Multi-Role</strong>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-2">
+                    <div class="ncsis-info-card">
+                        <span class="ncsis-card-label">Focus</span>
+                        <strong>Audit Management</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="ncsis-section ncsis-section-soft">
+        <div class="container-fluid">
+            <div class="ncsis-section-heading">
+                <h2>Key Feature Categories</h2>
+            </div>
+
+            <div class="row g-3">
+                {% set features = [
+                    ("User & Access Management", "Role-based access control, authentication, and user administration."),
+                    ("Audit Management", "Audit planning, execution, checklists, findings, validation, and results."),
+                    ("OTS Case Management", "OTS cases, personnel involvement, follow-up, notifications, and monitoring."),
+                    ("Scoring & KPI", "Scoring calculation, KPI analysis, finding statistics, and performance monitoring."),
+                    ("Notification & Follow-up", "Notifications, recipients management, and follow-up tracking."),
+                    ("Organizational Scope", "Areas, departments, positions, scope data, and organizational structure.")
+                ] %}
+
+                {% for title, description in features %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="ncsis-feature-card">
+                        <div class="ncsis-feature-icon">{{ loop.index }}</div>
+                        <div>
+                            <h3>{{ title }}</h3>
+                            <p>{{ description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="ncsis-section" id="ncsis-architecture">
+        <div class="container-fluid">
+            <div class="ncsis-section-heading">
+                <h2>System Architecture</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="ncsis-architecture-card">
+                        {% set layers = [
+                            ("Presentation Layer", "Jinja Templates / Bootstrap / JavaScript"),
+                            ("Route Layer", "Flask Routes / Role-based Endpoints"),
+                            ("Service Layer", "Business Logic / KPI / Workflow"),
+                            ("Repository Layer", "Data Access Logic"),
+                            ("Model Layer", "Domain Models / SQLAlchemy"),
+                            ("Database Layer", "MySQL / SQLite")
+                        ] %}
+
+                        {% for title, description in layers %}
+                        <div class="ncsis-layer">
+                            <span class="ncsis-layer-number">{{ loop.index }}</span>
+                            <div>
+                                <strong>{{ title }}</strong>
+                                {{ description }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="ncsis-detail-card">
+                        <h3>Architecture Principles</h3>
+                        <ul class="ncsis-check-list">
+                            <li>Separation of concerns between application layers</li>
+                            <li>Role-specific workflows and interfaces</li>
+                            <li>Reusable business services and repositories</li>
+                            <li>Database flexibility between MySQL and SQLite</li>
+                            <li>Maintainable Flask application structure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology -->
+    <section class="ncsis-section ncsis-section-soft">
+        <div class="container-fluid">
+            <div class="ncsis-section-heading">
+                <h2>Technology Stack</h2>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="ncsis-stack-card">
+                        <h3>Backend</h3>
+                        <p>Python · Flask · SQLAlchemy · Alembic</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ncsis-stack-card">
+                        <h3>Frontend</h3>
+                        <p>HTML · Jinja2 · Bootstrap · JavaScript · jQuery · DataTables · Chart.js</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ncsis-stack-card">
+                        <h3>Database</h3>
+                        <p>MySQL · SQLite</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contribution + Challenges -->
+    <section class="ncsis-section">
+        <div class="container-fluid">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="ncsis-detail-card h-100">
+                        <h2>My Role & Contribution</h2>
+                        <ul class="ncsis-check-list">
+                            <li>Analyzed business processes and translated requirements into application workflows.</li>
+                            <li>Worked with layered Flask architecture separating routes, services, repositories, and models.</li>
+                            <li>Developed and maintained Python/Flask application components.</li>
+                            <li>Worked with database structures and supported database migration from MySQL to SQLite.</li>
+                            <li>Diagnosed and resolved application issues during migration and functional validation.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="ncsis-detail-card h-100">
+                        <h2>Technical Challenges & Solutions</h2>
+
+                        <div class="ncsis-challenge">
+                            <strong>Complex application structure</strong>
+                            <span>→</span>
+                            <p>Applied layered architecture and clear separation of concerns.</p>
+                        </div>
+
+                        <div class="ncsis-challenge">
+                            <strong>Role-specific workflows</strong>
+                            <span>→</span>
+                            <p>Separated role-specific routes and templates.</p>
+                        </div>
+
+                        <div class="ncsis-challenge">
+                            <strong>Database migration</strong>
+                            <span>→</span>
+                            <p>Created migration scripts and adapted the application for SQLite.</p>
+                        </div>
+
+                        <div class="ncsis-challenge">
+                            <strong>Data compatibility</strong>
+                            <span>→</span>
+                            <p>Handled schema compatibility and performed functional validation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="ncsis-section ncsis-section-soft" id="ncsis-screenshots">
+        <div class="container-fluid">
+            <div class="ncsis-section-heading">
+                <h2>Selected Screenshots</h2>
+                <p>Sanitized portfolio views representing the major analytical and operational areas of ncsis.</p>
+            </div>
+
+            <div class="row g-4">
+                {% set screenshots = [
+                    ("dashboard-compliance.png", "National Compliance Overview"),
+                    ("risk-analysis.png", "Risk Level Analysis"),
+                    ("ots-dashboard.png", "OTS Case Overview"),
+                    ("finding-management.png", "Finding Management"),
+                    ("final-audit-score.png", "Final Audit Score"),
+                    ("regional-compliance.png", "Regional Compliance")
+                ] %}
+
+                {% for filename, caption in screenshots %}
+                <div class="col-md-6">
+                    <figure class="ncsis-screenshot-card">
+                        <img src="{{ url_for('static', filename='uploads/ncsis/' ~ filename) }}"
+                             alt="{{ caption }}">
+                        <figcaption>{{ caption }}</figcaption>
+                    </figure>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer action -->
+    <section class="ncsis-project-footer">
+        <a href="{{ url_for('portfolio.index') }}" class="btn btn-outline-primary">
+            ← Back to All Projects
+        </a>
+    </section>
+
+</div>
+{% endblock %}
