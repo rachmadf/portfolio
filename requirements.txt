@@ -1,7 +1,2 @@
 Flask==3.1.2
 Werkzeug==3.1.5
-numpy==1.26.4
-opencv-contrib-python==4.6.0.66
-opencv-python==4.6.0.66
-PaddleOCR==2.7.3
-PaddlePaddle==2.6.2
