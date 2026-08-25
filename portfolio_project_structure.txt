@@ -1,0 +1,180 @@
+Portfolio Project Folder Structure
+Folder PATH listing for volume DATA
+Volume serial number is 0000002A AC04:F2D8
+D:.
+|   .gitignore
+|   app.py
+|   portfolio_design.docx
+|   portfolio_project_structure.txt
+|   README.md
+|   requirements.txt
+|   
++---docs
+|       Portfolio_Project_Structure.docx
+|       SAD_00_Portfolio_Website_SAD_Expanded.docx
+|       SRS_00_Portfolio_Website_Requirements_v1.docx
+|       
++---MyFinance
+|   |   app.py
+|   |   config.py
+|   |   database.py
+|   |   database_initializer.py
+|   |   project_structure.txt
+|   |   schema.sql
+|   |   seed_data.py
+|   |   
+|   +---database
+|   |       create_database.py
+|   |       relationship.drawio
+|   |       
+|   +---docs
+|   |       expense_plan_v1.png
+|   |       expense_plan_v2.png
+|   |       features.docx
+|   |       
+|   +---instance
+|   |       myfinance.db
+|   |       
+|   +---logs
+|   +---models
+|   |   |   category_models.py
+|   |   |   expense_models.py
+|   |   |   store_models.py
+|   |   |   
+|   |   \---__pycache__
+|   |           category_models.cpython-311.pyc
+|   |           expense_models.cpython-311.pyc
+|   |           store_models.cpython-311.pyc
+|   |           
+|   +---repositories
+|   |   |   category_repository.py
+|   |   |   expense_repository.py
+|   |   |   store_repository.py
+|   |   |   
+|   |   \---__pycache__
+|   |           category_repository.cpython-311.pyc
+|   |           expense_repository.cpython-311.pyc
+|   |           store_repository.cpython-311.pyc
+|   |           
+|   +---routes
+|   |   |   category.py
+|   |   |   expense.py
+|   |   |   
+|   |   \---__pycache__
+|   |           expense.cpython-311.pyc
+|   |           
+|   +---services
+|   |   |   category_service.py
+|   |   |   expense_service.py
+|   |   |   store_service.py
+|   |   |   
+|   |   \---__pycache__
+|   |           category_service.cpython-311.pyc
+|   |           expense_service.cpython-311.pyc
+|   |           store_service.cpython-311.pyc
+|   |           
+|   +---static
+|   |   \---assets
+|   |       +---css
+|   |       |       style.css
+|   |       |       
+|   |       \---js
+|   |               app.js
+|   |               category.js
+|   |               category_modal.js
+|   |               expense.js
+|   |               expense_report.js
+|   |               store_modal.js
+|   |               
+|   +---templates
+|   |   |   index.html
+|   |   |   
+|   |   +---expense
+|   |   |       expense_add.html
+|   |   |       expense_add_old.html
+|   |   |       expense_plan.html
+|   |   |       report_expense_monthly.html
+|   |   |       
+|   |   +---includes
+|   |   |   |   footer.html
+|   |   |   |   modal_category.html
+|   |   |   |   modal_delete_category.html
+|   |   |   |   sidebar.html
+|   |   |   |   sidebar_old.html
+|   |   |   |   topbar.html
+|   |   |   |   
+|   |   |   \---modals
+|   |   |           category_modal.html
+|   |   |           store_modal.html
+|   |   |           
+|   |   +---layouts
+|   |   |       base.html
+|   |   |       
+|   |   +---master
+|   |   |       category_list.html
+|   |   |       
+|   |   \---mockup
+|   |           main_dashboard.png
+|   |           operation_expense_entry.png
+|   |           operation_income_entry.png
+|   |           
+|   +---_assets
+|   |   +---css
+|   |   |       style.css
+|   |   |       
+|   |   \---js
+|   |           app.js
+|   |           expense.js
+|   |           
+|   \---__pycache__
+|           config.cpython-311.pyc
+|           database.cpython-311.pyc
+|           
++---routes
+|   |   ocr.py
+|   |   portfolio.py
+|   |   research_notes.py
+|   |   
+|   \---__pycache__
+|           ocr.cpython-311.pyc
+|           portfolio.cpython-311.pyc
+|           research_notes.cpython-311.pyc
+|           
++---services
+|   |   ocr_service.py
+|   |   
+|   \---__pycache__
+|           ocr_service.cpython-311.pyc
+|           
++---static
+|   +---css
+|   |       ocr.css
+|   |       
+|   +---js
+|   |       ocr.js
+|   |       
+|   \---uploads
+|           andry_delanta_1.jpg
+|           andry_delanta_2.jpg
+|           interview_question_introduction.jpg
+|           research_ai_prompt_02.jpg
+|           research_ai_prompt_05.jpg
+|           
+\---templates
+    |   index.html
+    |   
+    +---layouts
+    |       base.html
+    |       
+    +---portfolio
+    |   |   index.html
+    |   |   
+    |   \---ocr
+    |           index.html
+    |           
+    +---research_notes
+    |       research_notes_home.html
+    |       
+    \---tools
+            ocr_extract.html
+            
