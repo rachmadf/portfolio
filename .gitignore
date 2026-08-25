@@ -8,6 +8,8 @@ venv/
 .venv/
 env/
 
+.venv_test/
+
 # Environment variables / secrets
 .env
 .env.*
