@@ -1,0 +1,1971 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}About Me{% endblock %}
+
+{% block styles %}
+<style>
+    .about-hero-photo {
+        width: 100%;
+        max-width: 280px;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        object-position: center center;
+        border-radius: 1rem;
+        border: 1px solid #dee2e6;
+    }
+
+    .about-hero-name {
+        color: #0d1b2a;
+        font-weight: 700;
+    }
+
+    .about-hero-title {
+        /*color: #5749c6;*/
+        color: #5749c6;
+        font-weight: 500;
+    }
+
+    .about-hero-summary {
+        color: #212426;
+        line-height: 1.7;
+    }
+
+    /*PROFESSIONAL PROFILE STYLE*/
+
+    .about-section-title {
+        color: #0d1b2a;
+        font-weight: 700;
+    }
+
+    .about-profile-text {
+        color: #212426;
+        line-height: 1.7;
+    }
+
+    .about-focus-column {
+        border-left: 1px solid #dee2e6;
+        padding-left: 1.5rem;
+    }
+
+    .about-focus-title {
+        color: #5749c6;
+        font-weight: 700;
+    }
+
+    .about-focus-icon {
+        font-size: 1.25rem;
+        color: #5749c6;
+    }
+
+    .about-focus-list {
+        padding-left: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .about-focus-list li {
+        color: #212426;
+        margin-bottom: 0.35rem;
+        font-weight: 500;
+    }
+
+    /*PROFESSIONAL HIGHLIGHT SECTION STYLE*/
+    .about-highlight-card {
+        height: 100%;
+        border: 1px solid #dee2e6;
+        border-radius: 0.75rem;
+        background-color: #fff;
+        padding: 1rem;
+    }
+
+    .about-highlight-icon {
+        font-size: 1.75rem;
+        color: #5749c6;
+        font-weight: 600;
+    }
+
+    .about-highlight-number {
+        color: #5749c6;
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .about-highlight-label {
+        color: #212426;
+        font-size: 0.9rem;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    /* ==================== CAREER JOURNEY ==================== */
+
+    .about-career-timeline {
+        display: flex;
+        position: relative;
+        margin-top: 1.5rem;
+    }
+
+    .about-career-item {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+        padding: 0 1rem 0 1.25rem;
+        border-left: 2px dotted #adb5bd;
+    }
+
+    .about-career-item:first-child {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .about-career-dot {
+        position: absolute;
+        top: -0.35rem;
+        left: -0.45rem;
+        width: 0.7rem;
+        height: 0.7rem;
+        background-color: #5749c6;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px #5749c6;
+    }
+
+    .about-career-item:first-child .about-career-dot {
+        left: 0;
+    }
+
+    .about-career-period {
+        color: #212529;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 0.55rem;
+    }
+
+    .about-career-position {
+        color: #212529;
+        font-size: 0.9rem;
+        font-weight: 700;
+        line-height: 1.35;
+        margin-bottom: 0.5rem;
+    }
+
+    .about-career-description {
+        color: #212426;
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1.45;
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 991.98px) {
+
+        .about-career-timeline {
+            display: block;
+        }
+
+        .about-career-item,
+        .about-career-item:first-child {
+            border-left: 2px dotted #adb5bd;
+            padding: 0 0 1.5rem 1.5rem;
+        }
+
+        .about-career-item:last-child {
+            border-left: none;
+            padding-bottom: 0;
+        }
+
+        .about-career-dot,
+        .about-career-item:first-child .about-career-dot {
+            left: -0.45rem;
+        }
+
+    }
+
+    /* ==================== EXPERTISE ==================== */
+
+    .about-expertise-card {
+        height: 100%;
+        border: 1px solid #dee2e6;
+        border-radius: 0.75rem;
+        background-color: #fff;
+        padding: 1rem;
+    }
+
+    .about-expertise-icon {
+        font-size: 1.5rem;
+        color: #5749c6;
+    }
+
+    .about-expertise-title {
+        color: #212529;
+        font-size: 0.9rem;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .about-expertise-list {
+        padding-left: 1rem;
+        margin: 0.75rem 0 0;
+    }
+
+    .about-expertise-list li {
+        color: #212426;
+        font-size: 0.75rem;
+        line-height: 1.45;
+        margin-bottom: 0.3rem;
+    }
+
+    /* ==================== EDUCATION & ACADEMIC FOCUS ==================== */
+
+    .about-education-card {
+        height: 100%;
+        border: 1px solid #dee2e6;
+        border-radius: 0.75rem;
+        background-color: #fff;
+        padding: 1rem;
+    }
+
+    .about-education-item {
+        padding: 0.45rem 0;
+        border-bottom: 1px dotted #dee2e6;
+    }
+
+    .about-education-item:last-child {
+        border-bottom: none;
+    }
+
+    .about-education-degree {
+        color: #212529;
+        font-size: 0.85rem;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    .about-education-institution {
+        color: #212426;
+        font-size: 0.8rem;
+        margin-top: 0.15rem;
+    }
+
+    .about-education-period {
+        color: #212426;
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+
+    .about-academic-card {
+        height: 100%;
+        border: 1px solid #d6e4f5;
+        border-radius: 0.75rem;
+        background-color: #f1f6fc;
+        padding: 1rem;
+    }
+
+    .about-academic-list {
+        padding-left: 1.1rem;
+        margin: 0.75rem 0 0;
+    }
+
+    .about-academic-list li {
+        color: #212426;
+        font-size: 0.8rem;
+        line-height: 1.5;
+        margin-bottom: 0.35rem;
+    }
+
+    .about-academic-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* ==================== TEACHING & RESEARCH ==================== */
+
+    .about-activity-card {
+        height: 100%;
+        border: 1px solid #dee2e6;
+        border-radius: 0.75rem;
+        background-color: #fff;
+        padding: 1rem;
+    }
+
+    .about-activity-icon {
+        font-size: 1.4rem;
+        color: #5749c6;
+    }
+
+    .about-activity-title {
+        color: #212529;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+
+    .about-teaching-stat {
+        margin-bottom: 0.65rem;
+    }
+
+    .about-teaching-number {
+        min-width: 2rem;
+        color: #5749c6;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .about-teaching-label {
+        color: #212426;
+        font-size: 0.8rem;
+    }
+
+    .about-subject-title {
+        color: #5749c6;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .about-subject-list,
+    .about-research-list {
+        padding-left: 1rem;
+        margin: 0.5rem 0 0;
+    }
+
+    .about-subject-list li,
+    .about-research-list li {
+        color: #212426;
+        font-size: 0.8rem;
+        line-height: 1.45;
+        margin-bottom: 0.25rem;
+    }
+
+    .about-activity-button {
+        font-size: 0.75rem;
+    }
+
+    .about-roadmap {
+        height: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid #d6e4f5;
+        background-color: #f1f6fc;
+    }
+
+    .about-roadmap-title {
+        color: #5749c6;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+    }
+
+    .about-roadmap-item {
+        display: grid;
+        grid-template-columns: 0.45rem 5.25rem 1fr;
+        column-gap: 0.55rem;
+        position: relative;
+        min-height: 1.65rem;
+    }
+
+    .about-roadmap-dot {
+        width: 0.55rem;
+        height: 0.55rem;
+        margin-top: 0.2rem;
+        background-color: #5749c6;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+    }
+
+    .about-roadmap-item:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        left: 0.22rem;
+        top: 0.7rem;
+        bottom: -0.25rem;
+        border-left: 2px dotted #9ec5fe;
+    }
+
+    .about-roadmap-period {
+        color: #212529;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .about-roadmap-description {
+        color: #212426;
+        font-size: 0.8rem;
+    }
+
+    .about-roadmap-goal {
+        margin-top: 0.2rem;
+        color: #212529;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    /* ==================== PROFESSIONAL CONTRIBUTIONS ==================== */
+
+    .about-contribution-card {
+        height: 100%;
+        border: 1px solid #dee2e6;
+        border-radius: 0.75rem;
+        background-color: #fff;
+        padding: 1rem;
+    }
+
+    .about-contribution-icon {
+        font-size: 1.5rem;
+        color: #5749c6;
+    }
+
+    .about-contribution-title {
+        color: #5749c6;
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
+
+    .about-contribution-list {
+        padding-left: 1rem;
+        margin: 0.55rem 0 0;
+    }
+
+    .about-contribution-list li {
+        color: #212426;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 0.25rem;
+    }
+
+    .about-contribution-badge {
+        min-width: 4rem;
+        padding: 0.55rem 0.5rem;
+        border-radius: 0.6rem;
+        background-color: #f1f3ff;
+        text-align: center;
+    }
+
+    .about-contribution-number {
+        color: #5749c6;
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.1;
+    }
+
+    .about-contribution-label {
+        color: #212426;
+        font-size: 0.65rem;
+        margin-top: 0.2rem;
+    }
+
+    /* ==================== FEATURED PROJECT ==================== */
+
+    .about-project-card {
+        border: 1px solid #dee2e6;
+        border-radius: 0.75rem;
+        background-color: #f1f6fc;
+        padding: 1rem;
+    }
+
+    .about-project-icon {
+        font-size: 1.5rem;
+        color: #5749c6;
+    }
+
+    .about-project-visual {
+        width: 100%;
+        max-width: 120px;
+        height: 90px;
+        border: 2px solid #5749c6;
+        border-radius: 0.5rem;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #5749c6;
+    }
+
+    .about-project-visual i {
+        font-size: 3rem;
+    }
+
+    .about-project-title {
+        color: #0d1b2a;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .about-project-tech {
+        color: #212426;
+        font-size: 0.9rem;
+    }
+
+    .about-project-description {
+        color: #212426;
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .about-project-process {
+        color: #5749c6;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .about-project-button {
+        white-space: nowrap;
+    }
+
+    /* ==================== LET'S CONNECT ==================== */
+
+    .about-connect-card {
+        border: 1px solid #dee2e6;
+        border-radius: 0.75rem;
+        background-color: #fff;
+        padding: 1rem 1.25rem;
+    }
+
+    .about-connect-icon {
+        font-size: 1.35rem;
+        color: #5749c6;
+    }
+
+    .about-connect-title {
+        color: #212529;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .about-connect-description {
+        color: #212426;
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    .about-connect-link {
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    .about-connect-contact {
+        color: #212426;
+        font-size: 0.8rem;
+    }
+
+    .about-connect-contact i {
+        color: #5749c6;
+        width: 1rem;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="mb-5">
+
+        <div class="card shadow-sm border rounded-4">
+            <div class="card-body p-4 p-lg-5">
+
+                <div class="row align-items-center g-4">
+
+                    <!-- Profile Photo -->
+                    <div class="col-md-4 text-center">
+
+                        <img
+                            src="{{ url_for('static', filename='images/profile_photo_plainshirt_redbg.png') }}"
+                            alt="Rachmad Fitriyanto"
+                            class="about-hero-photo"
+                        >
+
+                    </div>
+
+                    <!-- Profile Introduction -->
+                    <div class="col-md-8">
+
+                        <p class="text-uppercase text-muted small fw-semibold mb-2">
+                            About Me
+                        </p>
+
+                        <h1 class="display-5 about-hero-name mb-2">
+                            Rachmad Fitriyanto
+                        </h1>
+
+                        <h2 class="h5 about-hero-title mb-4">
+                            Lecturer · Data Science Researcher · Systems Analyst
+                        </h2>
+
+                        <p class="about-hero-summary mb-4">
+                            Informatics professional with experience across information
+                            technology support, systems analysis, higher education,
+                            internal audit, and data science research. Current research
+                            interests include data mining, machine learning, explainable
+                            clustering, cluster validation, and feature selection.
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-2">
+
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                disabled
+                            >
+                                <i class="bi bi-download me-2"></i>
+                                Download CV
+                            </button>
+
+                            <a
+                                href="https://www.linkedin.com/in/rachmadfitriyanto"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-outline-primary"
+                            >
+                                <i class="bi bi-linkedin me-2"></i>
+                                LinkedIn
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- ====== END OF HERO SECTION ====== -->
+
+    <!-- ==================== PROFESSIONAL PROFILE ==================== -->
+    <section class="mb-5">
+
+        <div class="card shadow-sm border rounded-4">
+            <div class="card-body p-4">
+
+                <div class="row g-4 align-items-center">
+
+                    <!-- Professional Narrative -->
+                    <div class="col-lg-6">
+
+                        <h2 class="h5 about-section-title mb-3">
+                            <i class="bi bi-person-circle text-primary me-2"></i>
+                            Professional Profile
+                        </h2>
+
+                        <p class="about-profile-text mb-3">
+                            My professional experience spans IT engineering, systems
+                            analysis, higher education, operational auditing, and
+                            data science research.
+                        </p>
+
+                        <p class="about-profile-text mb-0">
+                            I combine technical problem solving, software development,
+                            teaching, and applied research to develop practical,
+                            data-driven solutions and improve organizational
+                            processes.
+                        </p>
+
+                    </div>
+
+                    <!-- Professional Focus -->
+                    <div class="col-lg-6">
+
+                        <div class="row g-4">
+
+                            <!-- IT & Systems -->
+                            <div class="col-md-4">
+
+                                <div class="about-focus-column h-100">
+
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-pc-display about-focus-icon me-2"></i>
+                                        <span class="about-focus-title">
+                                            IT &amp; Systems
+                                        </span>
+                                    </div>
+
+                                    <ul class="about-focus-list small">
+                                        <li>Systems Analysis</li>
+                                        <li>Software Development</li>
+                                        <li>Solution Design</li>
+                                        <li>Process Improvement</li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Data Science -->
+                            <div class="col-md-4">
+
+                                <div class="about-focus-column h-100">
+
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-graph-up about-focus-icon me-2"></i>
+                                        <span class="about-focus-title">
+                                            Data Science
+                                        </span>
+                                    </div>
+
+                                    <ul class="about-focus-list small">
+                                        <li>Machine Learning</li>
+                                        <li>Data Mining</li>
+                                        <li>Explainable AI</li>
+                                        <li>Cluster Analysis</li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Education -->
+                            <div class="col-md-4">
+
+                                <div class="about-focus-column h-100">
+
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-mortarboard about-focus-icon me-2"></i>
+                                        <span class="about-focus-title">
+                                            Education
+                                        </span>
+                                    </div>
+
+                                    <ul class="about-focus-list small">
+                                        <li>Teaching</li>
+                                        <li>Mentoring</li>
+                                        <li>Curriculum Development</li>
+                                        <li>Student Supervision</li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- ==================== END OF PROFESSIONAL PROFILE SECTION ==================== -->
+
+    <!-- ==================== PROFESSIONAL HIGHLIGHTS ==================== -->
+    <section class="mb-5">
+
+        <div class="card shadow-sm border rounded-4">
+            <div class="card-body p-4">
+
+                <h2 class="h5 about-section-title mb-3">
+                    <i class="bi bi-bar-chart-fill text-primary me-2"></i>
+                    Professional Highlights
+                </h2>
+
+                <div class="row g-3">
+
+                    <!-- 28 Projects -->
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="about-highlight-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-people-fill about-highlight-icon"></i>
+
+                                <div>
+                                    <div class="about-highlight-number">
+                                        28
+                                    </div>
+
+                                    <div class="about-highlight-label mt-2">
+                                        Projects<br>
+                                        Supervised
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 8 Courses -->
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="about-highlight-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-easel-fill about-highlight-icon"></i>
+
+                                <div>
+                                    <div class="about-highlight-number">
+                                        8
+                                    </div>
+
+                                    <div class="about-highlight-label mt-2">
+                                        Courses<br>
+                                        Taught
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 8 Educational Resources -->
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="about-highlight-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-book-fill about-highlight-icon"></i>
+
+                                <div>
+                                    <div class="about-highlight-number">
+                                        8
+                                    </div>
+
+                                    <div class="about-highlight-label mt-2">
+                                        Educational<br>
+                                        Resources
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 2 Research Grants -->
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="about-highlight-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-bookmark-star-fill about-highlight-icon"></i>
+
+                                <div>
+                                    <div class="about-highlight-number">
+                                        2
+                                    </div>
+
+                                    <div class="about-highlight-label mt-2">
+                                        Research<br>
+                                        Grants
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 8 Publications -->
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="about-highlight-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-file-earmark-bar-graph-fill about-highlight-icon"></i>
+
+                                <div>
+                                    <div class="about-highlight-number">
+                                        8
+                                    </div>
+
+                                    <div class="about-highlight-label mt-2">
+                                        Research<br>
+                                        Publications
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 27 Branches -->
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="about-highlight-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-building-fill-check about-highlight-icon"></i>
+
+                                <div>
+                                    <div class="about-highlight-number">
+                                        27
+                                    </div>
+
+                                    <div class="about-highlight-label mt-2">
+                                        Branches<br>
+                                        Audited
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- ==================== END OF PROFESSIONAL HIGHLIGHTS SECTION ==================== -->
+
+    <!-- ==================== CAREER JOURNEY ==================== -->
+    <section class="mb-5">
+
+        <div class="card shadow-sm border rounded-4">
+            <div class="card-body p-4">
+
+                <h2 class="h5 about-section-title mb-0">
+                    <i class="bi bi-briefcase-fill text-primary me-2"></i>
+                    Career Journey
+                </h2>
+
+                <div class="about-career-timeline">
+
+                    <!-- 2025–2026 -->
+                    <div class="about-career-item">
+
+                        <!-- <span class="about-career-dot"></span> -->
+
+                        <div class="about-career-period">
+                            2025 – 2026
+                        </div>
+
+                        <div class="about-career-position">
+                            Internal Audit Staff
+                        </div>
+
+                        <p class="about-career-description">
+                            Conducting operational audits across 27 branch
+                            offices and developing audit monitoring systems.
+                        </p>
+
+                    </div>
+
+                    <!-- 2024–2025 -->
+                    <div class="about-career-item">
+
+                        <span class="about-career-dot"></span>
+
+                        <div class="about-career-period">
+                            2024 – 2025
+                        </div>
+
+                        <div class="about-career-position">
+                            Secretary – Internal Quality Assurance
+                        </div>
+
+                        <p class="about-career-description">
+                            Supporting institutional quality assurance,
+                            documentation, and process evaluation.
+                        </p>
+
+                    </div>
+
+                    <!-- 2023–2024 -->
+                    <div class="about-career-item">
+
+                        <span class="about-career-dot"></span>
+
+                        <div class="about-career-period">
+                            2023 – 2024
+                        </div>
+
+                        <div class="about-career-position">
+                            Head of Library
+                        </div>
+
+                        <p class="about-career-description">
+                            Leading library operations, services, and
+                            digital information management.
+                        </p>
+
+                    </div>
+
+                    <!-- 2020–2025 -->
+                    <div class="about-career-item">
+
+                        <span class="about-career-dot"></span>
+
+                        <div class="about-career-period">
+                            2020 – 2025
+                        </div>
+
+                        <div class="about-career-position">
+                            Lecturer
+                        </div>
+
+                        <p class="about-career-description">
+                            Teaching, research, student mentoring,
+                            curriculum development, and academic advising.
+                        </p>
+
+                    </div>
+
+                    <!-- 2020–2023 -->
+                    <div class="about-career-item">
+
+                        <span class="about-career-dot"></span>
+
+                        <div class="about-career-period">
+                            2020 – 2023
+                        </div>
+
+                        <div class="about-career-position">
+                            Library Staff
+                        </div>
+
+                        <p class="about-career-description">
+                            Managing library collections, systems,
+                            and user services.
+                        </p>
+
+                    </div>
+
+                    <!-- 2019–2020 -->
+                    <div class="about-career-item">
+
+                        <span class="about-career-dot"></span>
+
+                        <div class="about-career-period">
+                            2019 – 2020
+                        </div>
+
+                        <div class="about-career-position">
+                            IT Support &amp; Teaching Staff
+                        </div>
+
+                        <p class="about-career-description">
+                            Providing IT support and assisting in
+                            teaching activities.
+                        </p>
+
+                    </div>
+
+                    <!-- 2007–2019 -->
+                    <div class="about-career-item">
+
+                        <span class="about-career-dot"></span>
+
+                        <div class="about-career-period">
+                            2007 – 2019
+                        </div>
+
+                        <div class="about-career-position">
+                            IT Support - Systems Analyst
+                        </div>
+
+                        <p class="about-career-description">
+                            IT infrastructure support and systems
+                            analysis for various projects.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- ==================== END OF CAREER JOURNEY SECTION ==================== -->
+
+    <!-- ==================== EXPERTISE ==================== -->
+    <section class="mb-5">
+
+        <div class="card shadow-sm border rounded-4">
+            <div class="card-body p-4">
+
+                <h2 class="h5 about-section-title mb-3">
+                    <i class="bi bi-star-fill text-primary me-2"></i>
+                    Expertise
+                </h2>
+
+                <div class="row g-3">
+
+                    <!-- Data Science -->
+                    <div class="col-md-6 col-lg">
+                        <div class="about-expertise-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-bar-chart-line-fill about-expertise-icon"></i>
+
+                                <div>
+                                    <div class="about-expertise-title">
+                                        Data Science &amp;<br>
+                                        Machine Learning
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <ul class="about-expertise-list">
+                                <li>Clustering</li>
+                                <li>Data Mining</li>
+                                <li>Feature Selection</li>
+                                <li>Explainable AI</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <!-- Systems Analysis -->
+                    <div class="col-md-6 col-lg">
+                        <div class="about-expertise-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-diagram-3-fill about-expertise-icon"></i>
+
+                                <div>
+                                    <div class="about-expertise-title">
+                                        Systems Analysis &amp;<br>
+                                        Software Engineering
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <ul class="about-expertise-list">
+                                <li>Requirements Analysis</li>
+                                <li>SRS, DFD, ERD</li>
+                                <li>Database Design</li>
+                                <li>System Design</li>
+                                <li>Python / Flask Development</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <!-- IT Infrastructure -->
+                    <div class="col-md-6 col-lg">
+                        <div class="about-expertise-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-display-fill about-expertise-icon"></i>
+
+                                <div>
+                                    <div class="about-expertise-title">
+                                        IT Infrastructure &amp;<br>
+                                        Operations
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <ul class="about-expertise-list">
+                                <li>Networks / Cabling</li>
+                                <li>Databases</li>
+                                <li>IT Support</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <!-- Teaching -->
+                    <div class="col-md-6 col-lg">
+                        <div class="about-expertise-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-mortarboard-fill about-expertise-icon"></i>
+
+                                <div>
+                                    <div class="about-expertise-title">
+                                        Teaching &amp;<br>
+                                        Technical Mentoring
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <ul class="about-expertise-list">
+                                <li>Higher Education</li>
+                                <li>Technical Training</li>
+                                <li>Project Supervision</li>
+                                <li>Learning Materials</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <!-- Process Improvement -->
+                    <div class="col-md-6 col-lg">
+                        <div class="about-expertise-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-shield-fill-check about-expertise-icon"></i>
+
+                                <div>
+                                    <div class="about-expertise-title">
+                                        Process Improvement &amp;<br>
+                                        Operational Audit
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <ul class="about-expertise-list">
+                                <li>Business Processes</li>
+                                <li>Internal Audit</li>
+                                <li>Reporting</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- ==================== END OF EXPERTISE SECTION ==================== -->
+
+    <!-- ==================== EDUCATION & ACADEMIC FOCUS ==================== -->
+    <section class="mb-5">
+
+        <div class="row g-3">
+
+            <!-- ==================== EDUCATION ==================== -->
+            <div class="col-lg-7">
+
+                <div class="about-education-card shadow-sm">
+
+                    <h2 class="h5 about-section-title mb-2">
+                        <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                        Education
+                    </h2>
+
+                    <!-- Doctoral -->
+                    <div class="about-education-item">
+
+                        <div class="d-flex justify-content-between align-items-start gap-3">
+
+                            <div>
+                                <div class="about-education-degree">
+                                    Doctoral Study – Doctor of Informatics
+                                </div>
+
+                                <div class="about-education-institution">
+                                    Universitas AMIKOM Yogyakarta
+                                </div>
+                            </div>
+
+                            <div class="about-education-period">
+                                Present
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Master -->
+                    <div class="about-education-item">
+
+                        <div class="d-flex justify-content-between align-items-start gap-3">
+
+                            <div>
+                                <div class="about-education-degree">
+                                    Master of Informatics Engineering
+                                </div>
+
+                                <div class="about-education-institution">
+                                    Universitas Ahmad Dahlan
+                                </div>
+                            </div>
+
+                            <div class="about-education-period">
+                                2017 – 2019
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Bachelor -->
+                    <div class="about-education-item">
+
+                        <div class="d-flex justify-content-between align-items-start gap-3">
+
+                            <div>
+                                <div class="about-education-degree">
+                                    Bachelor of Informatics Engineering
+                                </div>
+
+                                <div class="about-education-institution">
+                                    Universitas Ahmad Dahlan
+                                </div>
+                            </div>
+
+                            <div class="about-education-period">
+                                2012 – 2017
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Diploma -->
+                    <div class="about-education-item">
+
+                        <div class="d-flex justify-content-between align-items-start gap-3">
+
+                            <div>
+                                <div class="about-education-degree">
+                                    Diploma in Electrical Engineering
+                                </div>
+
+                                <div class="about-education-institution">
+                                    Universitas Negeri Yogyakarta
+                                </div>
+                            </div>
+
+                            <div class="about-education-period">
+                                2002 – 2007
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================== ACADEMIC FOCUS ==================== -->
+            <div class="col-lg-5">
+
+                <div class="about-academic-card shadow-sm">
+
+                    <h2 class="h5 about-section-title mb-2">
+                        <i class="bi bi-bullseye text-primary me-2"></i>
+                        Academic Focus
+                    </h2>
+
+                    <ul class="about-academic-list">
+
+                        <li>
+                            Data Science
+                        </li>
+
+                        <li>
+                            Machine Learning
+                        </li>
+
+                        <li>
+                            Explainable Clustering
+                        </li>
+
+                        <li>
+                            Information Systems
+                        </li>
+
+                        <li>
+                            Software Engineering
+                        </li>
+
+                        <li>
+                            Business Process Improvement
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- ==================== END OF EDUCATION & ACADEMIC FOCUS SECTION ==================== -->
+
+    <!-- ==================== TEACHING & RESEARCH ==================== -->
+    <section class="mb-5">
+
+        <div class="row g-3">
+
+            <!-- ==================== TEACHING ==================== -->
+            <div class="col-lg-6">
+
+                <div class="about-activity-card shadow-sm d-flex flex-column">
+
+                    <div class="d-flex align-items-center mb-3">
+
+                        <i class="bi bi-easel-fill about-activity-icon me-2"></i>
+
+                        <span class="about-activity-title">
+                            Teaching
+                        </span>
+
+                    </div>
+
+                    <div class="row g-4">
+
+                        <!-- Teaching Statistics -->
+                        <div class="col-md-5">
+
+                            <div class="about-teaching-stat d-flex align-items-center">
+                                <span class="about-teaching-number">
+                                    8
+                                </span>
+
+                                <span class="about-teaching-label">
+                                    Courses Taught
+                                </span>
+                            </div>
+
+                            <div class="about-teaching-stat d-flex align-items-center">
+                                <span class="about-teaching-number">
+                                    28
+                                </span>
+
+                                <span class="about-teaching-label">
+                                    Students Supervised
+                                </span>
+                            </div>
+
+                            <div class="about-teaching-stat d-flex align-items-center">
+                                <span class="about-teaching-number">
+                                    8
+                                </span>
+
+                                <span class="about-teaching-label">
+                                    Educational Resources
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <!-- Selected Subjects -->
+                        <div class="col-md-7">
+
+                            <div class="about-subject-title">
+                                Selected Subjects
+                            </div>
+
+                            <ul class="about-subject-list">
+                                <li>Database Design</li>
+                                <li>Operating Systems</li>
+                                <li>Computer Networks</li>
+                                <li>Artificial Intelligence</li>
+                                <li>Filesystem & Access</li>
+                                <li>Operational Research</li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mt-auto pt-3">
+
+                        <a
+                            href="{{ url_for('course_materials.index') }}"
+                            class="btn btn-outline-primary btn-sm about-activity-button"
+                        >
+                            View Course Materials
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================== RESEARCH ==================== -->
+            <div class="col-lg-6">
+
+                <div class="about-activity-card shadow-sm d-flex flex-column">
+
+                    <div class="d-flex align-items-center mb-3">
+
+                        <i class="bi bi-cpu-fill about-activity-icon me-2"></i>
+
+                        <span class="about-activity-title">
+                            Research
+                        </span>
+
+                    </div>
+
+                    <div class="row g-3">
+
+                        <!-- Research Areas -->
+                        <div class="col-md-5">
+
+                            <ul class="about-research-list mt-0">
+
+                                <li>Explainable Clustering</li>
+                                <li>Feature Selection</li>
+                                <li>Cluster Validation</li>
+                                <li>Data Mining</li>
+                                <li>Explainable AI</li>
+
+                            </ul>
+
+                        </div>
+
+                        <!-- Research Roadmap -->
+                        <div class="col-md-7">
+
+                            <div class="about-roadmap">
+
+                                <div class="about-roadmap-title">
+                                    Research Roadmap
+                                </div>
+
+                                <!-- 2024–2025 -->
+                                <div class="about-roadmap-item">
+
+                                    <span class="about-roadmap-dot"></span>
+
+                                    <span class="about-roadmap-period">
+                                        2024 – 2025
+                                    </span>
+
+                                    <span class="about-roadmap-description">
+                                        Fundamental Interpretation
+                                    </span>
+
+                                </div>
+
+                                <!-- 2025–2026 -->
+                                <div class="about-roadmap-item">
+
+                                    <span class="about-roadmap-dot"></span>
+
+                                    <span class="about-roadmap-period">
+                                        2025 – 2026
+                                    </span>
+
+                                    <span class="about-roadmap-description">
+                                        Cluster Validation
+                                    </span>
+
+                                </div>
+
+                                <!-- 2026–2030 -->
+                                <div class="about-roadmap-item">
+
+                                    <span class="about-roadmap-dot"></span>
+
+                                    <span class="about-roadmap-period">
+                                        2026 – 2030
+                                    </span>
+
+                                    <span class="about-roadmap-description">
+                                        Explainable Clustering
+                                    </span>
+
+                                </div>
+
+                                <!-- Long-term -->
+                                <div class="about-roadmap-goal">
+                                    Long-term Goal:
+                                    <br>
+                                    <span class="fw-normal">
+                                        Feature Relationship-Based Explainable Clustering
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mt-auto pt-3">
+
+                        <a
+                            href="{{ url_for('research_notes.index') }}"
+                            class="btn btn-outline-primary btn-sm about-activity-button"
+                        >
+                            View Research Notes
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- ==================== END OF TEACHING & RESEARCH SECTION ==================== -->
+
+    <!-- ==================== PROFESSIONAL CONTRIBUTIONS ==================== -->
+    <section class="mb-5">
+
+        <div class="card shadow-sm border rounded-4">
+            <div class="card-body p-4">
+
+                <h2 class="h5 about-section-title mb-3">
+                    <i class="bi bi-award-fill text-primary me-2"></i>
+                    Professional Contributions
+                </h2>
+
+                <div class="row g-3">
+
+                    <!-- ==================== COMMUNITY ENGAGEMENT ==================== -->
+                    <div class="col-lg-4">
+
+                        <div class="about-contribution-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-people-fill about-contribution-icon"></i>
+
+                                <div class="flex-grow-1">
+
+                                    <div class="about-contribution-title">
+                                        Community Engagement
+                                    </div>
+
+                                    <ul class="about-contribution-list">
+                                        <li>
+                                            Teacher training &amp; workshops
+                                        </li>
+                                        <li>
+                                            Informatics OSN mentoring
+                                        </li>
+                                        <li>
+                                            Programming mentoring
+                                        </li>
+                                        <li>
+                                            Office automation training
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="about-contribution-badge">
+
+                                    <div class="about-contribution-number">
+                                        7
+                                    </div>
+
+                                    <div class="about-contribution-label">
+                                        Activities
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================== TECHNICAL EVALUATION ==================== -->
+                    <div class="col-lg-4">
+
+                        <div class="about-contribution-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-clipboard-check-fill about-contribution-icon"></i>
+
+                                <div class="flex-grow-1">
+
+                                    <div class="about-contribution-title">
+                                        Technical Evaluation
+                                    </div>
+
+                                    <ul class="about-contribution-list">
+                                        <li>
+                                            Provincial LKS IT Network Judge
+                                        </li>
+                                        <li>
+                                            Provincial LKS Software for Business Judge
+                                        </li>
+                                        <li>
+                                            External Competency Examiner
+                                        </li>
+                                        <li>
+                                            Technical Assessment
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="about-contribution-badge">
+
+                                    <div class="about-contribution-number">
+                                        3
+                                    </div>
+
+                                    <div class="about-contribution-label">
+                                        Roles
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================== INSTITUTIONAL CONTRIBUTION ==================== -->
+                    <div class="col-lg-4">
+
+                        <div class="about-contribution-card">
+
+                            <div class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-building-fill about-contribution-icon"></i>
+
+                                <div class="flex-grow-1">
+
+                                    <div class="about-contribution-title">
+                                        Institutional Contribution
+                                    </div>
+
+                                    <ul class="about-contribution-list">
+                                        <li>
+                                            Internal Quality Assurance
+                                        </li>
+                                        <li>
+                                            Library Management
+                                        </li>
+                                        <li>
+                                            Business Process Analysis
+                                        </li>
+                                        <li>
+                                            Operational Planning &amp; Evaluation
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="about-contribution-badge">
+
+                                    <div class="about-contribution-number">
+                                        4+
+                                    </div>
+
+                                    <div class="about-contribution-label">
+                                        Initiatives
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ==================== END OF PROFESSIONAL CONTRIBUTIONS ==================== -->
+
+    <!-- ==================== FEATURED PROJECT ==================== -->
+    <section class="mb-5">
+
+        <div class="card shadow-sm border rounded-4">
+
+            <div class="card-body p-4">
+
+                <!-- Section Title -->
+                <h2 class="h5 about-section-title mb-3">
+                    <!-- <i class="bi bi-code-slash text-primary me-2"></i> -->
+                    <i class="bi bi-aspect-ratio-fill text-primary me-2"></i>
+                    Featured Project
+                </h2>
+
+                <!-- Project Content -->
+                <div class="about-project-card">
+
+                    <div class="row align-items-center g-3">
+
+                        <!-- Project Visual -->
+                        <div class="col-md-2 text-center">
+
+                            <div class="about-project-visual mx-auto">
+                                <i class="bi bi-pc-display"></i>
+                            </div>
+
+                        </div>
+
+                        <!-- Project Information -->
+                        <div class="col-md-7">
+
+                            <div class="about-project-title mb-1">
+                                Internal Audit Monitoring System
+                            </div>
+
+                            <div class="about-project-tech mb-2">
+                                Python &nbsp;·&nbsp; Flask &nbsp;·&nbsp; SQLite
+                            </div>
+
+                            <p class="about-project-description mb-2">
+                                Replaced a resource-intensive Excel-macro reporting
+                                workflow with a centralized web application for
+                                audit monitoring across 27 branch offices.
+                            </p>
+
+                            <div class="about-project-process">
+                                Requirements
+                                <i class="bi bi-arrow-right mx-1"></i>
+
+                                Database Design
+                                <i class="bi bi-arrow-right mx-1"></i>
+
+                                UI/UX
+                                <i class="bi bi-arrow-right mx-1"></i>
+
+                                Development
+                                <i class="bi bi-arrow-right mx-1"></i>
+
+                                Deployment
+                            </div>
+
+                        </div>
+
+                        <!-- Project Action -->
+                        <div class="col-md-3 text-md-end text-center">
+
+                            <a
+                                href="{{ url_for('portfolio.ncsis') }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-primary btn-sm about-project-button"
+                            >
+                                View Documentation
+                                <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- ==================== END OF FEATURED PROJECT SECTION ==================== -->
+
+    <!-- ==================== LET'S CONNECT ==================== -->
+    <section class="mb-4">
+
+        <div class="about-connect-card shadow-sm">
+
+            <div class="row align-items-center g-3">
+
+                <!-- Introduction -->
+                <div class="col-lg-5">
+
+                    <div class="d-flex align-items-start">
+
+                        <i class="bi bi-envelope about-connect-icon me-2"></i>
+
+                        <div>
+
+                            <div class="about-connect-title">
+                                Let's Connect
+                            </div>
+
+                            <div class="about-connect-description">
+                                Interested in collaboration, research,
+                                technical projects, or professional opportunities?
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Professional Links -->
+                <div class="col-lg-4">
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <!-- LinkedIn -->
+                        <a
+                            href="https://www.linkedin.com/in/rachmadfitriyanto"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-outline-primary btn-sm about-connect-link"
+                        >
+                            <i class="bi bi-linkedin me-1"></i>
+                            LinkedIn
+                        </a>
+
+                        <!-- Google Scholar -->
+                        <a
+                            href="https://scholar.google.com/citations?user=Lbenp-IAAAAJ"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-outline-primary btn-sm about-connect-link"
+                        >
+                            <i class="bi bi-mortarboard me-1"></i>
+                            Google Scholar
+                        </a>
+
+                        <!-- ORCID -->
+                        <a
+                            href="https://orcid.org/0000-0001-5308-6467"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-outline-primary btn-sm about-connect-link"
+                        >
+                            <i class="bi bi-link-45deg me-1"></i>
+                            ORCID
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Contact Information -->
+                <div class="col-lg-3">
+
+                    <div class="about-connect-contact mb-1">
+                        <i class="bi bi-envelope me-1"></i>
+                        rachmad7477@gmail.com
+                    </div>
+
+                    <div class="about-connect-contact">
+                        <i class="bi bi-geo-alt me-1"></i>
+                        Jambi, Indonesia
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- ==================== END OF LET'S CONNECT SECTION ==================== -->
+
+</div>
+
+{% endblock %}
