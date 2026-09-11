@@ -12,5 +12,5 @@ research_notes = Blueprint(
 def index():
 
     return render_template(
-        "/research_notes/research_notes_home.html"
+        "/research_notes/research_portfolio.html"
     )

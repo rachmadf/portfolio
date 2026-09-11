@@ -33,40 +33,141 @@
 
                 </button>
 
-                <div class="collapse navbar-collapse"
-                     id="menu">
+                <div
+            class="collapse navbar-collapse"
+            id="navbarMenu">
 
-                    <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Home
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{url_for('index')}}">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#">
+
+                        Data Analysis
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#">
+
+                        Data Science
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('course_materials.index') }}">
+
+                        Course Materials
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('research_notes.index') }}">
+
+                        Research Notes
+
+                    </a>
+
+                </li>
+
+                <!-- <li class="nav-item dropdown">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown">
+
+                        Portfolio
+
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="#">
+
+                                OCR Text Extractor
+
                             </a>
+
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Projects
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="#">
+
+                                MyFinance
+
                             </a>
+
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Research
-                            </a>
-                        </li>
+                        <li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Contact
+                            <a
+                                class="dropdown-item"
+                                href="#">
+
+                                CSV Analyzer
+
                             </a>
+
                         </li>
 
                     </ul>
 
-                </div>
+                </li> -->
 
-            </div>
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('about.index') }}">
+
+                        About
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
 
         </nav>
 
@@ -174,11 +275,11 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
-                                <h5>Research Notes</h5>
+                                <h5>Research Portfolio</h5>
                                 <p>
-                                    Publications,
+                                    Publications, Grants
                                     research roadmap,
-                                    and experiments.
+                                    and experiments
                                 </p>
                                 <a href="{{ url_for('research_notes.index') }}"
                                     class="btn btn-outline-primary">
