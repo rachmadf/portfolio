@@ -4,362 +4,839 @@
 
 {% block content %}
 
-<div class="container-fluid py-4">
+<style>
+    .cm-page {
+        --cm-navy: #111827;
+        --cm-slate: #475569;
+        --cm-muted: #64748b;
+        --cm-border: #e2e8f0;
+        --cm-surface: #ffffff;
+        --cm-soft: #f8fafc;
+        --cm-accent: #4f46e5;
+        --cm-accent-soft: #eef2ff;
+        --cm-success: #0f766e;
+        --cm-success-soft: #ecfdf5;
+        --cm-info: #0369a1;
+        --cm-info-soft: #eff6ff;
+    }
 
-    <!-- =========================================
-         PAGE HEADER
-    ========================================== -->
-    <!-- <div class="mb-4">
-        <h1 class="h3 mb-2">Course Materials</h1>
-        <p class="text-muted mb-0">
-            Database Design, Operating System, Operational Research, etc.
+    .cm-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 3.25rem;
+        border-radius: 1.5rem;
+        background:
+            radial-gradient(circle at 85% 15%, rgba(99,102,241,.16), transparent 30%),
+            linear-gradient(135deg, #0f172a 0%, #172554 58%, #312e81 100%);
+        color: #fff;
+        box-shadow: 0 1rem 3rem rgba(15,23,42,.14);
+    }
+
+    .cm-hero::after {
+        content: "";
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        right: -90px;
+        bottom: -130px;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 50%;
+    }
+
+    .cm-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .45rem .8rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255,255,255,.16);
+        border-radius: 999px;
+        background: rgba(255,255,255,.07);
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+    .cm-hero h1 {
+        max-width: 760px;
+        margin-bottom: 1rem;
+        font-size: clamp(2rem, 4vw, 3.35rem);
+        line-height: 1.08;
+        font-weight: 750;
+        letter-spacing: -.035em;
+    }
+
+    .cm-hero .lead {
+        max-width: 820px;
+        color: rgba(255,255,255,.78);
+        font-size: 1.04rem;
+        line-height: 1.75;
+    }
+
+    .cm-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .55rem;
+        margin-top: 1.5rem;
+    }
+
+    .cm-pill {
+        padding: .48rem .75rem;
+        border: 1px solid rgba(255,255,255,.15);
+        border-radius: 999px;
+        background: rgba(255,255,255,.07);
+        color: rgba(255,255,255,.9);
+        font-size: .82rem;
+        font-weight: 600;
+    }
+
+    .cm-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem;
+        margin-top: 1.75rem;
+    }
+
+    .cm-section {
+        margin-top: 3.5rem;
+    }
+
+    .cm-section-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 1.5rem;
+        align-items: flex-end;
+        margin-bottom: 1.35rem;
+    }
+
+    .cm-kicker {
+        margin-bottom: .35rem;
+        color: var(--cm-accent);
+        font-size: .75rem;
+        font-weight: 800;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+    }
+
+    .cm-section-heading h2 {
+        margin-bottom: .35rem;
+        color: var(--cm-navy);
+        font-size: 1.65rem;
+        font-weight: 750;
+        letter-spacing: -.02em;
+    }
+
+    .cm-section-heading p {
+        max-width: 720px;
+        margin: 0;
+        color: var(--cm-muted);
+    }
+
+    .cm-metric {
+        height: 100%;
+        padding: 1.35rem;
+        border: 1px solid var(--cm-border);
+        border-radius: 1rem;
+        background: var(--cm-surface);
+        box-shadow: 0 .4rem 1.4rem rgba(15,23,42,.055);
+    }
+
+    .cm-metric-label {
+        color: var(--cm-muted);
+        font-size: .8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+    }
+
+    .cm-metric-value {
+        margin-top: .3rem;
+        color: var(--cm-navy);
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -.03em;
+    }
+
+    .cm-metric-note {
+        margin-top: .2rem;
+        color: var(--cm-muted);
+        font-size: .88rem;
+    }
+
+    .cm-course-card,
+    .cm-publication-card {
+        height: 100%;
+        border: 1px solid var(--cm-border);
+        border-radius: 1.15rem;
+        background: var(--cm-surface);
+        box-shadow: 0 .45rem 1.5rem rgba(15,23,42,.055);
+        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .cm-course-card:hover,
+    .cm-publication-card:hover {
+        transform: translateY(-3px);
+        border-color: #c7d2fe;
+        box-shadow: 0 .8rem 2rem rgba(15,23,42,.09);
+    }
+
+    .cm-card-body {
+        padding: 1.4rem;
+    }
+
+    .cm-icon {
+        width: 3rem;
+        height: 3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        border-radius: .9rem;
+        background: var(--cm-accent-soft);
+        color: var(--cm-accent);
+        font-size: 1.25rem;
+    }
+
+    .cm-card-top {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .cm-card-title {
+        margin: 0 0 .4rem;
+        color: var(--cm-navy);
+        font-size: 1.05rem;
+        line-height: 1.4;
+        font-weight: 750;
+    }
+
+    .cm-card-meta {
+        color: var(--cm-muted);
+        font-size: .82rem;
+        font-weight: 650;
+    }
+
+    .cm-description {
+        margin: 1rem 0 1.15rem;
+        color: var(--cm-slate);
+        font-size: .91rem;
+        line-height: 1.7;
+    }
+
+    .cm-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .45rem;
+        margin-bottom: 1.15rem;
+    }
+
+    .cm-tag {
+        padding: .35rem .6rem;
+        border-radius: .55rem;
+        background: var(--cm-soft);
+        color: var(--cm-slate);
+        font-size: .76rem;
+        font-weight: 650;
+    }
+
+    .cm-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: .75rem;
+        padding-top: 1rem;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .cm-type {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        color: var(--cm-muted);
+        font-size: .78rem;
+        font-weight: 650;
+    }
+
+    .cm-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        border-radius: .7rem;
+        font-weight: 700;
+    }
+
+    .cm-feature {
+        padding: 1.75rem;
+        border: 1px solid var(--cm-border);
+        border-radius: 1.15rem;
+        background: linear-gradient(135deg, #f8fafc, #eef2ff);
+    }
+
+    .cm-feature h3 {
+        color: var(--cm-navy);
+        font-size: 1.35rem;
+        font-weight: 750;
+    }
+
+    .cm-feature p {
+        color: var(--cm-slate);
+        line-height: 1.75;
+    }
+
+    .cm-flow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: .75rem;
+        margin-top: 1.35rem;
+    }
+
+    .cm-flow-item {
+        padding: .9rem;
+        border: 1px solid #e0e7ff;
+        border-radius: .8rem;
+        background: rgba(255,255,255,.75);
+        text-align: center;
+        color: var(--cm-navy);
+        font-size: .8rem;
+        font-weight: 750;
+    }
+
+    .cm-flow-item i {
+        display: block;
+        margin-bottom: .4rem;
+        color: var(--cm-accent);
+        font-size: 1.15rem;
+    }
+
+    .cm-cta {
+        padding: 2rem;
+        border-radius: 1.15rem;
+        background: #f8fafc;
+        border: 1px solid var(--cm-border);
+    }
+
+    .cm-cta h2 {
+        color: var(--cm-navy);
+        font-size: 1.45rem;
+        font-weight: 750;
+    }
+
+    .cm-cta p {
+        max-width: 760px;
+        color: var(--cm-muted);
+        line-height: 1.7;
+    }
+
+    @media (max-width: 767.98px) {
+        .cm-hero {
+            padding: 2rem 1.35rem;
+            border-radius: 1.1rem;
+        }
+
+        .cm-section {
+            margin-top: 2.5rem;
+        }
+
+        .cm-section-heading {
+            display: block;
+        }
+
+        .cm-flow {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .cm-card-footer {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="container-fluid py-4 cm-page">
+
+    <!-- HERO -->
+    <section class="cm-hero">
+        <div class="cm-eyebrow">
+            <i class="bi bi-mortarboard-fill"></i>
+            Teaching Portfolio
+        </div>
+
+        <h1>Course Materials & Teaching Resources</h1>
+
+        <p class="lead mb-0">
+            A curated portfolio of teaching materials developed around
+            Database Design, Operating Systems, Computer Networks, Operational
+            Research, Human–Computer Interaction, and Information Systems.
+            These resources reflect practical teaching experience and a
+            systems-oriented approach to computing education.
         </p>
-    </div> -->
 
+        <div class="cm-pills">
+            <span class="cm-pill">Database Design</span>
+            <span class="cm-pill">Operating Systems</span>
+            <span class="cm-pill">Computer Networks</span>
+            <span class="cm-pill">Operational Research</span>
+            <span class="cm-pill">HCI</span>
+            <span class="cm-pill">Information Systems</span>
+        </div>
 
-    <section class="mb-5">
-        
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="cm-hero-actions">
+            <a href="#course-materials" class="btn btn-light cm-btn">
+                <i class="bi bi-collection"></i>
+                Explore Materials
+            </a>
+            <a href="#published-materials" class="btn btn-outline-light cm-btn">
+                <i class="bi bi-book"></i>
+                Published Work
+            </a>
+        </div>
+    </section>
 
+    <!-- IMPACT -->
+    <section class="cm-section">
+        <div class="cm-section-heading">
             <div>
-                <h2 class="h4 mb-1">Book & Book-Chapter</h2>
-                <p class="text-muted mb-0">
-                    Operating System, Information System & Data Mining, etc.
+                <div class="cm-kicker">Teaching Scope</div>
+                <h2>Evidence of teaching capability</h2>
+                <p>
+                    The materials are presented as professional teaching
+                    artifacts rather than simply a collection of downloadable files.
                 </p>
             </div>
+        </div>
 
+        <div class="row g-3">
+            <div class="col-6 col-xl-3">
+                <div class="cm-metric">
+                    <div class="cm-metric-label">Course Areas</div>
+                    <div class="cm-metric-value">6+</div>
+                    <div class="cm-metric-note">Computing & information systems</div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="cm-metric">
+                    <div class="cm-metric-label">Teaching Experience</div>
+                    <div class="cm-metric-value">2020–2025</div>
+                    <div class="cm-metric-note">Lecturer experience</div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="cm-metric">
+                    <div class="cm-metric-label">Original Resources</div>
+                    <div class="cm-metric-value">8</div>
+                    <div class="cm-metric-note">Educational resources developed</div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="cm-metric">
+                    <div class="cm-metric-label">Technical Projects</div>
+                    <div class="cm-metric-value">28</div>
+                    <div class="cm-metric-note">Undergraduate projects supervised</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLISHED MATERIALS -->
+    <section class="cm-section" id="published-materials">
+        <div class="cm-section-heading">
+            <div>
+                <div class="cm-kicker">Published Materials</div>
+                <h2>Books & Book Chapters</h2>
+                <p>
+                    Published contributions demonstrating the ability to turn
+                    technical concepts into structured learning content.
+                </p>
+            </div>
         </div>
 
         <div class="row g-4">
 
             <!-- Book 1 -->
-            <div class="col-lg-12">
-                <div class="card h-100 border rounded-3 shadow-sm">
-                    <div class="card-body d-flex align-items-start bg-info-subtle">
-                        <!-- Icon -->
-                        <div class="me-3">
-                            <div class="bg-light bg-gradient text-info rounded-3 p-3">
-                                <i class="bi bi-cpu fs-3"></i>
+            <div class="col-lg-4">
+                <article class="cm-publication-card">
+                    <div class="cm-card-body">
+                        <div class="cm-card-top">
+                            <div class="cm-icon">
+                                <i class="bi bi-cpu"></i>
+                            </div>
+                            <div>
+                                <div class="cm-card-meta">Book</div>
+                                <h3 class="cm-card-title">Sistem Operasi: Algoritma Penjadwalan CPU</h3>
                             </div>
                         </div>
 
-                        <!-- Course Content -->
-                        <div class="flex-grow-1">
+                        <p class="cm-description">
+                            Covers process concepts and CPU scheduling approaches,
+                            including FCFS, SJF, Priority, Round Robin, preemptive
+                            scheduling, and real-time scheduling methods.
+                        </p>
 
-                            <h3 class="h5 mb-1">
-                                Sistem Operasi: Algoritma Penjadwalan CPU
-                            </h3>
+                        <div class="cm-tags">
+                            <span class="cm-tag">Operating Systems</span>
+                            <span class="cm-tag">CPU Scheduling</span>
+                            <span class="cm-tag">Algorithms</span>
+                        </div>
 
-                            <p class="text-muted mb-2">
-                                Materi: Konsep proses dalam sistem operasi, First-Come First-Serve, Shortest-Job First, Priority Scheduling, Longest-Job First, Shortest Remaining Time Next, Round Robin, Preemptive Priority Scheduling, Rate Monotonic Scheduling, Least Laxity First, Multilevel Queue, Multilevel Feedback Queue
-                            </p>
-
-                            <a href="https://shopee.co.id/Deepublish-Buku-Sistem-Operasi-Algoritma-Penjadwalan-CPU-Buku-Ilmu-Komputer-i.15385962.44218662214" class="btn btn-sm btn-info">
-                                <i class="bi bi-eye-fill me-1"></i>
-                                View
+                        <div class="cm-card-footer">
+                            <span class="cm-type"><i class="bi bi-journal-text"></i> Published book</span>
+                            <a href="https://shopee.co.id/Deepublish-Buku-Sistem-Operasi-Algoritma-Penjadwalan-CPU-Buku-Ilmu-Komputer-i.15385962.44218662214"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn btn-sm btn-outline-primary cm-btn">
+                                View <i class="bi bi-arrow-up-right"></i>
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
-            <!-- End of Book 1 -->
 
             <!-- Book 2 -->
-            <div class="col-lg-12">
-                <div class="card h-100 border rounded-3 shadow-sm">
-                    <div class="card-body d-flex align-items-start bg-info-subtle">
-                        <!-- Icon -->
-                        <div class="me-3">
-                            <div class="bg-light bg-gradient text-info rounded-3 p-3">
-                                <i class="bi bi-window-stack fs-3"></i>
+            <div class="col-lg-4">
+                <article class="cm-publication-card">
+                    <div class="cm-card-body">
+                        <div class="cm-card-top">
+                            <div class="cm-icon">
+                                <i class="bi bi-window-stack"></i>
+                            </div>
+                            <div>
+                                <div class="cm-card-meta">Book Chapter · pp. 46–76</div>
+                                <h3 class="cm-card-title">Siklus Pengembangan Sistem Informasi</h3>
                             </div>
                         </div>
 
-                        <!-- Course Content -->
-                        <div class="flex-grow-1">
+                        <p class="cm-description">
+                            Introduces the information-system development cycle
+                            through investigation, analysis, design, and
+                            implementation stages.
+                        </p>
 
-                            <h3 class="h5 mb-1">
-                                Siklus Pengembangan Sistem Informasi (In Pengantar Sistem Informasi: Konsep Dasar dan Aplikasi Praktis pp. 46–76)
-                            </h3>
+                        <div class="cm-tags">
+                            <span class="cm-tag">Information Systems</span>
+                            <span class="cm-tag">Systems Analysis</span>
+                            <span class="cm-tag">Software Engineering</span>
+                        </div>
 
-                            <p class="text-muted mb-2">
-                                Materi: Analisis dan Perancangan Sistem, Tahap Investigasi Sistem, Tahap Analisis, Tahap Perancangan, Tahap Implementasi
-                            </p>
-
-                            <a href="https://buku.sonpedia.com/2024/04/pengantar-sistem-informasi.html" class="btn btn-sm btn-info">
-                                <i class="bi bi-eye-fill me-1"></i>
-                                View
+                        <div class="cm-card-footer">
+                            <span class="cm-type"><i class="bi bi-journal-text"></i> Book chapter</span>
+                            <a href="https://buku.sonpedia.com/2024/04/pengantar-sistem-informasi.html"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn btn-sm btn-outline-primary cm-btn">
+                                View <i class="bi bi-arrow-up-right"></i>
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
-            <!-- End of Book 2 -->
 
             <!-- Book 3 -->
-            <div class="col-lg-12">
-                <div class="card h-100 border rounded-3 shadow-sm">
-                    <div class="card-body d-flex align-items-start bg-info-subtle">
-                        <!-- Icon -->
-                        <div class="me-3">
-                            <div class="bg-light bg-gradient text-info rounded-3 p-3">
-                                <i class="bi bi-bar-chart-line fs-3"></i>
+            <div class="col-lg-4">
+                <article class="cm-publication-card">
+                    <div class="cm-card-body">
+                        <div class="cm-card-top">
+                            <div class="cm-icon">
+                                <i class="bi bi-bar-chart-line"></i>
+                            </div>
+                            <div>
+                                <div class="cm-card-meta">Book Chapter · pp. 110–126</div>
+                                <h3 class="cm-card-title">Studi Kasus Apriori</h3>
                             </div>
                         </div>
 
-                        <!-- Course Content -->
-                        <div class="flex-grow-1">
+                        <p class="cm-description">
+                            Presents the fundamentals of association rules and
+                            market basket analysis as a practical foundation for
+                            understanding the Apriori algorithm.
+                        </p>
 
-                            <h3 class="h5 mb-1">
-                                Studi Kasus Apriori (Book Chapter In Buku Ajar Machine Learning pp. 110–126)
-                            </h3>
+                        <div class="cm-tags">
+                            <span class="cm-tag">Data Mining</span>
+                            <span class="cm-tag">Apriori</span>
+                            <span class="cm-tag">Association Rules</span>
+                        </div>
 
-                            <p class="text-muted mb-2">
-                                Materi: konsep dasar association rule di dalam market basket analysis yang menjadi dasar pengembangan algoritma apriori
-                            </p>
-
-                            <a href="https://buku.sonpedia.com/2024/02/buku-ajar-machine-learning.html" class="btn btn-sm btn-info">
-                                <i class="bi bi-eye-fill me-1"></i>
-                                View
+                        <div class="cm-card-footer">
+                            <span class="cm-type"><i class="bi bi-journal-text"></i> Book chapter</span>
+                            <a href="https://buku.sonpedia.com/2024/02/buku-ajar-machine-learning.html"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn btn-sm btn-outline-primary cm-btn">
+                                View <i class="bi bi-arrow-up-right"></i>
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
-            <!-- End of Book 3 -->
 
         </div>
-        <!-- End of 1st row: Book & Book Chapter -->
     </section>
 
-
-    <!-- =========================================
-         Course Materials
-    ========================================== -->
-    <section class="mb-5">
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
+    <!-- TEACHING MATERIALS -->
+    <section class="cm-section" id="course-materials">
+        <div class="cm-section-heading">
             <div>
-                <h2 class="h4 mb-1">Book & Course Materials</h2>
-                <p class="text-muted mb-0">
-                    Database Design, Operating System, Operational Research, etc.
+                <div class="cm-kicker">Teaching Resources</div>
+                <h2>Course Materials</h2>
+                <p>
+                    Selected instructional resources covering core computing
+                    and information-system subjects taught in higher education.
                 </p>
             </div>
-
-            <!-- <a href="#" class="btn btn-sm btn-outline-primary">
-                View All
-            </a> -->
-
         </div>
-
-        
 
         <div class="row g-4">
 
-            <!-- Course Material 1 -->
-            <div class="col-lg-12">
-
-                <div class="card h-100 border rounded-3 shadow-sm">
-
-                    <div class="card-body d-flex align-items-start">
-
-                        <!-- Icon -->
-                        <div class="me-3">
-                            <div class="bg-info-subtle text-info rounded-3 p-3">
-                                <i class="bi bi-database fs-3"></i>
+            <!-- Database -->
+            <div class="col-lg-6">
+                <article class="cm-course-card">
+                    <div class="cm-card-body">
+                        <div class="cm-card-top">
+                            <div class="cm-icon">
+                                <i class="bi bi-database"></i>
+                            </div>
+                            <div>
+                                <div class="cm-card-meta">Database Design</div>
+                                <h3 class="cm-card-title">Basis Data</h3>
                             </div>
                         </div>
 
-                        <!-- Course Content -->
-                        <div class="flex-grow-1">
+                        <p class="cm-description">
+                            Structured material covering database fundamentals,
+                            conceptual design, entity–relationship identification,
+                            logical database design, and physical database design.
+                        </p>
 
-                            <h3 class="h5 mb-1">
-                                Basis Data
-                            </h3>
-
-                            <p class="text-muted mb-2">
-                                Materi: Pengantar Basis Data, Perancangan Konseptual Basis Data,
-                                Identifikasi Relasi Entitas, Perancangan Logika Basis Data,
-                                Perancangan Fisik Basis Data
-                            </p>
-
-                            <a href="https://drive.google.com/file/d/19R4wBidMYy3o56s4_xRJHVXsircCUGeJ/view?usp=drive_link" class="btn btn-sm btn-info">
-                                <i class="bi bi-download me-1"></i>
-                                Download
-                            </a>
-
+                        <div class="cm-tags">
+                            <span class="cm-tag">Database Fundamentals</span>
+                            <span class="cm-tag">ER Modeling</span>
+                            <span class="cm-tag">Logical Design</span>
+                            <span class="cm-tag">Physical Design</span>
                         </div>
 
+                        <div class="cm-card-footer">
+                            <span class="cm-type"><i class="bi bi-file-earmark-text"></i> Teaching material</span>
+                            <a href="https://drive.google.com/file/d/19R4wBidMYy3o56s4_xRJHVXsircCUGeJ/view?usp=drive_link"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn btn-sm btn-primary cm-btn">
+                                Open Material <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                        </div>
                     </div>
-
-                </div>
-
+                </article>
             </div>
 
-            <!-- Course Material 2 -->
-            <div class="col-lg-12">
-
-                <div class="card h-100 border rounded-3 shadow-sm">
-
-                    <div class="card-body d-flex align-items-start">
-
-                        <!-- Icon -->
-                        <div class="me-3">
-                            <div class="bg-info-subtle text-info rounded-3 p-3">
-                                <i class="bi bi-ethernet fs-3"></i>
+            <!-- Networks -->
+            <div class="col-lg-6">
+                <article class="cm-course-card">
+                    <div class="cm-card-body">
+                        <div class="cm-card-top">
+                            <div class="cm-icon">
+                                <i class="bi bi-ethernet"></i>
+                            </div>
+                            <div>
+                                <div class="cm-card-meta">Computer Networks</div>
+                                <h3 class="cm-card-title">Jaringan Komputer dan Komunikasi Data</h3>
                             </div>
                         </div>
 
-                        <!-- Course Content -->
-                        <div class="flex-grow-1">
+                        <p class="cm-description">
+                            Covers data communication, transmission media and
+                            network architecture, subnetting, and related
+                            foundational networking concepts.
+                        </p>
 
-                            <h3 class="h5 mb-1">
-                                 Jaringan Komputer dan Komunikasi Data
-                            </h3>
-
-                            <p class="text-muted mb-2">
-                                Materi: Komunikasi Data, Media Transmisi dan Arsitektur Jaringan, Subnetting, dll.
-                            </p>
-
-                            <a href="https://drive.google.com/file/d/183-sz_DGNa3UHpAdJoHOVcsUlKYrFjTP/view?usp=drive_link" class="btn btn-sm btn-info">
-                                <i class="bi bi-download me-1"></i>
-                                Download
-                            </a>
-
+                        <div class="cm-tags">
+                            <span class="cm-tag">Data Communication</span>
+                            <span class="cm-tag">Network Architecture</span>
+                            <span class="cm-tag">Subnetting</span>
                         </div>
 
+                        <div class="cm-card-footer">
+                            <span class="cm-type"><i class="bi bi-file-earmark-text"></i> Teaching material</span>
+                            <a href="https://drive.google.com/file/d/183-sz_DGNa3UHpAdJoHOVcsUlKYrFjTP/view?usp=drive_link"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn btn-sm btn-primary cm-btn">
+                                Open Material <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                        </div>
                     </div>
-
-                </div>
-
+                </article>
             </div>
 
-            <!-- Course Material 3 -->
-            <div class="col-lg-12">
-
-                <div class="card h-100 border rounded-3 shadow-sm">
-
-                    <div class="card-body d-flex align-items-start">
-
-                        <!-- Icon -->
-                        <div class="me-3">
-                            <div class="bg-info-subtle text-info rounded-3 p-3">
-                                <i class="bi bi-grid-3x3-gap-fill fs-3"></i>
+            <!-- Operational Research -->
+            <div class="col-lg-6">
+                <article class="cm-course-card">
+                    <div class="cm-card-body">
+                        <div class="cm-card-top">
+                            <div class="cm-icon">
+                                <i class="bi bi-grid-3x3-gap-fill"></i>
+                            </div>
+                            <div>
+                                <div class="cm-card-meta">Operations Research</div>
+                                <h3 class="cm-card-title">Teknik Riset Operasional</h3>
                             </div>
                         </div>
 
-                        <!-- Course Content -->
-                        <div class="flex-grow-1">
+                        <p class="cm-description">
+                            Practical material covering graphical linear programming,
+                            transportation and assignment problems, network analysis,
+                            minimum spanning trees, and Dijkstra's algorithm.
+                        </p>
 
-                            <h3 class="h5 mb-1">
-                                 Teknik Riset Operasional
-                            </h3>
-
-                            <p class="text-muted mb-2">
-                                Materi: Program Linier Grafik, Nort-West Corner, Assignment Problem, Analisis Jaringan Kerja, Minimum Spanning Tree, Algoritma Dijkstra.
-                            </p>
-
-                            <a href="https://drive.google.com/file/d/1A2f5jlzXrrujdzxDhXD8AmeEEzv_owDJ/view?usp=drive_link" class="btn btn-sm btn-info">
-                                <i class="bi bi-download me-1"></i>
-                                Download
-                            </a>
-
+                        <div class="cm-tags">
+                            <span class="cm-tag">Linear Programming</span>
+                            <span class="cm-tag">Assignment Problem</span>
+                            <span class="cm-tag">Graph Algorithms</span>
                         </div>
 
+                        <div class="cm-card-footer">
+                            <span class="cm-type"><i class="bi bi-file-earmark-text"></i> Teaching material</span>
+                            <a href="https://drive.google.com/file/d/1A2f5jlzXrrujdzxDhXD8AmeEEzv_owDJ/view?usp=drive_link"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn btn-sm btn-primary cm-btn">
+                                Open Material <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                        </div>
                     </div>
-
-                </div>
-
+                </article>
             </div>
-            <!-- End of Course Material 3 -->
 
-
-            <!-- Course Material 4 -->
-            <div class="col-lg-12">
-
-                <div class="card h-100 border rounded-3 shadow-sm">
-
-                    <div class="card-body d-flex align-items-start">
-
-                        <!-- Icon -->
-                        <div class="me-3">
-                            <div class="bg-info-subtle text-info rounded-3 p-3">
-                                <i class="bi bi-person-workspace fs-3"></i>
+            <!-- HCI -->
+            <div class="col-lg-6">
+                <article class="cm-course-card">
+                    <div class="cm-card-body">
+                        <div class="cm-card-top">
+                            <div class="cm-icon">
+                                <i class="bi bi-person-workspace"></i>
+                            </div>
+                            <div>
+                                <div class="cm-card-meta">Human–Computer Interaction</div>
+                                <h3 class="cm-card-title">Interaksi Manusia & Komputer</h3>
                             </div>
                         </div>
 
-                        <!-- Course Content -->
-                        <div class="flex-grow-1">
+                        <p class="cm-description">
+                            Introduces cognitive capabilities in visual design,
+                            interaction-interface design processes, interface
+                            development, and evaluation of interface products.
+                        </p>
 
-                            <h3 class="h5 mb-1">
-                                Interaksi Manusia & Komputer
-                            </h3>
-
-                            <p class="text-muted mb-2">
-                                Materi: Kemampuan Kognitif dalam Desain Visual, Antarmuka dan Proses Desain Interaksi, Perancangan Antarmuka, Evaluasi Produk Antarmuka
-                            </p>
-
-                            <a href="https://drive.google.com/file/d/1A2LPqSYi50NPBBZbFGD1xe7vyKdEeRN3/view?usp=drive_link" class="btn btn-sm btn-info">
-                                <i class="bi bi-download me-1"></i>
-                                Download
-                            </a>
-
+                        <div class="cm-tags">
+                            <span class="cm-tag">Interaction Design</span>
+                            <span class="cm-tag">UI Design</span>
+                            <span class="cm-tag">Evaluation</span>
                         </div>
 
+                        <div class="cm-card-footer">
+                            <span class="cm-type"><i class="bi bi-file-earmark-text"></i> Teaching material</span>
+                            <a href="https://drive.google.com/file/d/1A2LPqSYi50NPBBZbFGD1xe7vyKdEeRN3/view?usp=drive_link"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn btn-sm btn-primary cm-btn">
+                                Open Material <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                        </div>
                     </div>
-
-                </div>
-
+                </article>
             </div>
-            <!-- End of Course Material 4 -->
 
-
-            <!-- Course Material 4 -->
-            <div class="col-lg-12">
-
-                <div class="card h-100 border rounded-3 shadow-sm">
-
-                    <div class="card-body d-flex align-items-start">
-
-                        <!-- Icon -->
-                        <div class="me-3">
-                            <div class="bg-info-subtle text-info rounded-3 p-3">
-                                <i class="bi bi-file-earmark-post fs-3"></i>
+            <!-- File Systems -->
+            <div class="col-lg-6">
+                <article class="cm-course-card">
+                    <div class="cm-card-body">
+                        <div class="cm-card-top">
+                            <div class="cm-icon">
+                                <i class="bi bi-file-earmark-post"></i>
+                            </div>
+                            <div>
+                                <div class="cm-card-meta">Operating Systems</div>
+                                <h3 class="cm-card-title">Sistem Berkas dan Akses</h3>
                             </div>
                         </div>
 
-                        <!-- Course Content -->
-                        <div class="flex-grow-1">
+                        <p class="cm-description">
+                            Covers files and filesystems, directories, protection,
+                            file access, secondary storage devices, Cylinder–Head–Sector,
+                            and Logical Block Addressing.
+                        </p>
 
-                            <h3 class="h5 mb-1">
-                                Sistem Berkas dan Akses
-                            </h3>
-
-                            <p class="text-muted mb-2">
-                                Materi: File, Filesystem, Direktori, Protection, Akses File, Secondary Storage Devices, Cylinder-Head-Sector, Logical Block Addressing
-                            </p>
-
-                            <a href="https://drive.google.com/file/d/1CmkeJvwWxa_no959pfyF3dRkcIH0aBJ8/view?usp=drive_link" class="btn btn-sm btn-info">
-                                <i class="bi bi-download me-1"></i>
-                                Download
-                            </a>
-
+                        <div class="cm-tags">
+                            <span class="cm-tag">File Systems</span>
+                            <span class="cm-tag">Storage</span>
+                            <span class="cm-tag">File Access</span>
                         </div>
 
+                        <div class="cm-card-footer">
+                            <span class="cm-type"><i class="bi bi-file-earmark-text"></i> Teaching material</span>
+                            <a href="https://drive.google.com/file/d/1CmkeJvwWxa_no959pfyF3dRkcIH0aBJ8/view?usp=drive_link"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn btn-sm btn-primary cm-btn">
+                                Open Material <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                        </div>
                     </div>
-
-                </div>
-
+                </article>
             </div>
-            <!-- End of Course Material 5 -->
-
 
         </div>
-
     </section>
 
+    <!-- TEACHING POSITIONING -->
+    <section class="cm-section">
+        <div class="cm-feature">
+            <div class="cm-kicker">Teaching Approach</div>
+            <h3>From technical concepts to structured learning</h3>
+            <p>
+                The materials demonstrate a teaching profile that connects
+                foundational computing concepts with analytical and
+                systems-oriented problem solving. This complements experience
+                in systems analysis, software engineering, data science, and
+                applied research.
+            </p>
 
+            <div class="cm-flow">
+                <div class="cm-flow-item">
+                    <i class="bi bi-lightbulb"></i>
+                    Concept
+                </div>
+                <div class="cm-flow-item">
+                    <i class="bi bi-diagram-3"></i>
+                    Structure
+                </div>
+                <div class="cm-flow-item">
+                    <i class="bi bi-code-slash"></i>
+                    Application
+                </div>
+                <div class="cm-flow-item">
+                    <i class="bi bi-check2-circle"></i>
+                    Evaluation
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cm-section mb-4">
+        <div class="cm-cta">
+            <div class="cm-kicker">Professional Profile</div>
+            <h2>Teaching, systems analysis, and applied technology</h2>
+            <p>
+                These course materials are one part of a broader professional
+                profile spanning higher education, software and systems
+                development, data science research, and technical problem solving.
+            </p>
+
+            <div class="d-flex flex-wrap gap-2 mt-3">
+                <a href="{{ url_for('about.index') }}" class="btn btn-primary cm-btn">
+                    <i class="bi bi-person"></i>
+                    View About Me
+                </a>
+                <a href="{{ url_for('research_notes.index') }}" class="btn btn-outline-secondary cm-btn">
+                    <i class="bi bi-journal-code"></i>
+                    Research Notes
+                </a>
+            </div>
+        </div>
+    </section>
 
 </div>
 

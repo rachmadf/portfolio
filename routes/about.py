@@ -12,5 +12,5 @@ about = Blueprint(
 def index():
 
     return render_template(
-        "about/about.html"
+        "about/about_me.html"
     )

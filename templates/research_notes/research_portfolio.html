@@ -6,655 +6,1036 @@
 
 <style>
     /* =========================================================
-       RESEARCH PORTFOLIO
-       Visual language based on the supplied mock-up:
-       green = publications, blue = grants, red = roadmap
+       RESEARCH PORTFOLIO — PROFESSIONAL / CAREER-FOCUSED UI
+       Visual language aligned with the About Me page:
+       deep navy + purple accent + restrained blue surfaces.
        ========================================================= */
 
     .research-portfolio {
-        --rp-green: #62a83f;
-        --rp-blue: #123f9c;
-        --rp-red: #ff1717;
-        --rp-border: #d9d9d9;
-        --rp-soft: #f4f4f4;
-        --rp-text: #171717;
-    }
-
-    .research-portfolio .page-title {
-        font-size: 2rem;
-        font-weight: 700;
+        --rp-navy: #0d1b2a;
+        --rp-purple: #5749c6;
+        --rp-purple-soft: #f1f3ff;
+        --rp-blue-soft: #f1f6fc;
+        --rp-text: #212426;
+        --rp-muted: #68707a;
+        --rp-border: #dee2e6;
+        --rp-white: #ffffff;
+        --rp-shadow: 0 .35rem 1rem rgba(13, 27, 42, .06);
         color: var(--rp-text);
-        margin-bottom: .1rem;
     }
 
-    .research-portfolio .page-subtitle {
-        color: #333;
-        margin-bottom: 1.5rem;
+    .research-portfolio .container {
+        max-width: 1180px;
     }
 
-    /* Top navigation cards */
-    .rp-overview-card {
-        min-height: 150px;
-        background: #fff;
-        border: 1.5px solid currentColor;
-        border-radius: .75rem;
-        transition: transform .15s ease, box-shadow .15s ease;
+    /* ==================== HERO ==================== */
+
+    .rp-hero {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--rp-border);
+        border-radius: 1rem;
+        background:
+            radial-gradient(circle at 92% 10%, rgba(87,73,198,.10), transparent 30%),
+            linear-gradient(135deg, #ffffff 0%, #f8f9fc 100%);
+        box-shadow: var(--rp-shadow);
     }
 
-    .rp-overview-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 .35rem 1rem rgba(0,0,0,.08);
+    .rp-hero::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        background: var(--rp-purple);
     }
 
-    .rp-overview-card.green { color: var(--rp-green); }
-    .rp-overview-card.blue  { color: var(--rp-blue); }
-    .rp-overview-card.red   { color: var(--rp-red); }
-
-    .rp-overview-card .card-body {
-        padding: 1rem;
+    .rp-hero-inner {
+        position: relative;
+        z-index: 1;
+        padding: 2rem 2.1rem;
     }
 
-    .rp-overview-icon {
-        font-size: 2.15rem;
-        line-height: 1;
-        margin-right: .65rem;
-    }
-
-    .rp-overview-title {
-        font-size: 1.5rem;
+    .rp-eyebrow {
+        color: var(--rp-purple);
+        font-size: .76rem;
         font-weight: 700;
-        margin: 0;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin-bottom: .65rem;
     }
 
-    .rp-overview-text {
-        font-size: .95rem;
-        margin: .65rem 0 1rem;
+    .rp-page-title {
+        color: var(--rp-navy);
+        font-size: clamp(1.8rem, 3vw, 2.55rem);
+        font-weight: 750;
+        line-height: 1.15;
+        margin-bottom: .65rem;
     }
 
-    .rp-outline-btn {
-        border: 1px solid currentColor;
-        color: inherit;
-        background: transparent;
-        padding: .25rem .8rem;
-        font-size: .85rem;
-        border-radius: .35rem;
+    .rp-hero-lead {
+        color: #39414a;
+        font-size: 1rem;
+        line-height: 1.7;
+        max-width: 780px;
+        margin-bottom: 1.1rem;
     }
 
-    .rp-outline-btn:hover {
-        color: inherit;
-        background: rgba(0,0,0,.035);
+    .rp-positioning {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .45rem;
+        margin-bottom: 1.25rem;
     }
 
-    /* Section headings */
+    .rp-positioning span {
+        display: inline-flex;
+        align-items: center;
+        padding: .35rem .65rem;
+        border-radius: 999px;
+        background: var(--rp-purple-soft);
+        color: #4437a9;
+        font-size: .76rem;
+        font-weight: 600;
+    }
+
+    .rp-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .55rem;
+    }
+
+    .rp-hero-actions .btn {
+        border-radius: .55rem;
+        font-size: .82rem;
+        font-weight: 600;
+    }
+
+    /* ==================== IMPACT METRICS ==================== */
+
+    .rp-metrics {
+        margin-top: 1rem;
+    }
+
+    .rp-metric {
+        height: 100%;
+        border: 1px solid var(--rp-border);
+        border-radius: .75rem;
+        background: var(--rp-white);
+        padding: 1rem;
+        box-shadow: 0 .2rem .7rem rgba(13, 27, 42, .035);
+    }
+
+    .rp-metric-number {
+        color: var(--rp-purple);
+        font-size: 1.65rem;
+        font-weight: 750;
+        line-height: 1;
+        margin-bottom: .35rem;
+    }
+
+    .rp-metric-label {
+        color: var(--rp-muted);
+        font-size: .74rem;
+        font-weight: 600;
+        line-height: 1.35;
+    }
+
+    /* ==================== SECTION ==================== */
+
     .rp-section {
-        margin-top: 2.7rem;
+        margin-top: 2.5rem;
+    }
+
+    .rp-section-heading {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: .9rem;
     }
 
     .rp-section-title {
-        font-size: 1.7rem;
-        font-weight: 700;
-        margin-bottom: .7rem;
+        color: var(--rp-navy);
+        font-size: 1.35rem;
+        font-weight: 750;
+        margin: 0;
     }
 
-    .rp-rule {
-        height: 4px;
+    .rp-section-subtitle {
+        color: var(--rp-muted);
+        font-size: .78rem;
+        margin: .2rem 0 0;
+    }
+
+    .rp-section-line {
+        height: 1px;
         border: 0;
-        background: #e7e7e7;
+        background: var(--rp-border);
+        margin: 0 0 1rem;
         opacity: 1;
-        margin: 0 0 .8rem;
     }
 
-    /* Publications table */
-    .rp-publications {
+    /* ==================== RESEARCH THEMES ==================== */
+
+    .rp-theme-card {
+        height: 100%;
         border: 1px solid var(--rp-border);
-        border-radius: .35rem;
-        overflow: hidden;
+        border-radius: .75rem;
+        background: #fff;
+        padding: 1rem;
+        transition: transform .15s ease, box-shadow .15s ease;
     }
 
-    .rp-publication-head {
-        background: #e5e5e5;
-        font-weight: 700;
-        text-align: center;
+    .rp-theme-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--rp-shadow);
+    }
+
+    .rp-theme-icon {
+        width: 2.15rem;
+        height: 2.15rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: .55rem;
+        background: var(--rp-purple-soft);
+        color: var(--rp-purple);
         font-size: 1.05rem;
+        margin-bottom: .75rem;
     }
 
-    .rp-publication-row {
-        border-top: 1px solid var(--rp-border);
-        min-height: 58px;
+    .rp-theme-title {
+        color: var(--rp-navy);
+        font-size: .9rem;
+        font-weight: 700;
+        margin-bottom: .35rem;
     }
 
-    .rp-publication-main {
-        padding: .5rem .6rem;
+    .rp-theme-text {
+        color: var(--rp-muted);
+        font-size: .77rem;
+        line-height: 1.55;
+        margin: 0;
     }
 
-    .rp-publication-title {
-        font-size: .98rem;
-        line-height: 1.25;
-        margin-bottom: .2rem;
+    /* ==================== FEATURED RESEARCH ==================== */
+
+    .rp-featured {
+        border: 1px solid #d6e4f5;
+        border-radius: .85rem;
+        background: var(--rp-blue-soft);
+        padding: 1.25rem;
     }
 
-    .rp-meta {
+    .rp-featured-label {
+        display: inline-block;
+        color: #3659a7;
+        background: #e4edfb;
+        border-radius: 999px;
+        padding: .25rem .6rem;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        margin-bottom: .65rem;
+    }
+
+    .rp-featured-title {
+        color: var(--rp-navy);
+        font-size: 1.1rem;
+        font-weight: 750;
+        line-height: 1.4;
+        margin-bottom: .45rem;
+    }
+
+    .rp-featured-text {
+        color: #3f474f;
+        font-size: .8rem;
+        line-height: 1.6;
+        margin-bottom: .85rem;
+    }
+
+    .rp-featured-flow {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: .35rem;
-        font-size: .76rem;
+        color: var(--rp-purple);
+        font-size: .72rem;
+        font-weight: 650;
     }
 
-    .rp-year {
-        color: #fff;
-        background: #ff922e;
-        padding: .12rem .4rem;
-        border-radius: .2rem;
+    .rp-featured-flow span {
+        padding: .25rem .5rem;
+        border: 1px solid #d6d0fa;
+        border-radius: .4rem;
+        background: #fff;
+    }
+
+    /* ==================== PUBLICATIONS ==================== */
+
+    .rp-publication-card {
+        height: 100%;
+        border: 1px solid var(--rp-border);
+        border-radius: .75rem;
+        background: #fff;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .rp-publication-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--rp-shadow);
+    }
+
+    .rp-publication-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .35rem;
+        margin-bottom: .55rem;
+    }
+
+    .rp-badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: .3rem;
+        padding: .2rem .45rem;
+        font-size: .65rem;
         font-weight: 700;
     }
 
-    .rp-year.green {
-        background: #6fdd00;
-        color: #111;
+    .rp-badge-year {
+        color: #4437a9;
+        background: var(--rp-purple-soft);
     }
 
-    .rp-year.purple {
-        background: #9368ff;
+    .rp-badge-type {
+        color: #53606d;
+        background: #f1f3f5;
     }
 
-    .rp-source {
-        color: #fff;
-        background: #67bd19;
-        padding: .12rem .4rem;
-        border-radius: .2rem;
+    .rp-publication-title {
+        color: var(--rp-navy);
+        font-size: .87rem;
+        font-weight: 700;
+        line-height: 1.45;
+        margin-bottom: .4rem;
     }
 
-    .rp-source.purple {
-        background: #9368ff;
+    .rp-publication-source {
+        color: var(--rp-muted);
+        font-size: .72rem;
+        line-height: 1.45;
+        margin-bottom: .8rem;
     }
 
-    .rp-download {
-        min-width: 132px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-left: 1px solid var(--rp-border);
-        padding: .35rem;
+    .rp-publication-action {
+        margin-top: auto;
     }
 
-    .rp-download a {
-        display: inline-flex;
-        align-items: center;
-        gap: .5rem;
-        color: #222;
-        text-decoration: none;
-        font-size: .88rem;
+    .rp-publication-action .btn {
+        font-size: .72rem;
+        border-radius: .45rem;
     }
 
-    .rp-download i {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 26px;
-        height: 26px;
-        border-radius: .25rem;
-        background: #081fff;
-        color: #fff;
-        font-size: 1rem;
+    /* ==================== GRANTS ==================== */
+
+    .rp-grant-card {
+        height: 100%;
+        border: 1px solid var(--rp-border);
+        border-radius: .75rem;
+        background: #fff;
+        padding: 1.05rem;
     }
 
-    /* Grants */
-    .rp-grants {
-        font-size: .98rem;
-    }
-
-    .rp-grant {
-        margin-bottom: 1rem;
-    }
-
-    .rp-grant-number {
-        font-weight: 500;
-        margin-right: .35rem;
+    .rp-grant-index {
+        color: var(--rp-purple);
+        font-size: .7rem;
+        font-weight: 750;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        margin-bottom: .45rem;
     }
 
     .rp-grant-title {
-        display: inline;
-        font-weight: 500;
+        color: var(--rp-navy);
+        font-size: .88rem;
+        font-weight: 700;
+        line-height: 1.45;
+        margin-bottom: .75rem;
     }
 
-    .rp-grant-meta {
-        margin-left: 2rem;
-        margin-top: .25rem;
+    .rp-grant-detail {
+        display: grid;
+        grid-template-columns: 5.8rem 1fr;
+        column-gap: .45rem;
+        row-gap: .35rem;
+        color: var(--rp-muted);
+        font-size: .72rem;
+        line-height: 1.45;
     }
 
-    .rp-grant-meta div {
-        margin-bottom: .12rem;
+    .rp-grant-detail strong {
+        color: #4d5660;
+        font-weight: 650;
     }
 
-    .rp-grant-label {
-        display: inline-block;
-        width: 8.5rem;
-    }
+    /* ==================== ROADMAP ==================== */
 
-    /* Roadmap */
-    .rp-roadmap-wrap {
-        border: 1px solid #e3e3e3;
-        border-radius: .45rem;
-        padding: .75rem;
+    .rp-roadmap-card {
+        border: 1px solid var(--rp-border);
+        border-radius: .85rem;
         background: #fff;
+        padding: .75rem;
+        box-shadow: 0 .2rem .8rem rgba(13, 27, 42, .035);
     }
 
     .rp-roadmap-image {
         display: block;
         width: 100%;
         height: auto;
-        max-height: 900px;
+        max-height: 850px;
         object-fit: contain;
+        border-radius: .55rem;
     }
 
-    .rp-roadmap-fallback {
-        padding: 2rem;
-        text-align: center;
-        background: #f8f8f8;
-        color: #666;
-        border-radius: .35rem;
+    .rp-roadmap-caption {
+        color: var(--rp-muted);
+        font-size: .72rem;
+        line-height: 1.5;
+        padding: .65rem .35rem .1rem;
     }
+
+    /* ==================== RESEARCH VALUE / CTA ==================== */
+
+    .rp-value-card {
+        border: 1px solid var(--rp-border);
+        border-radius: .85rem;
+        background: linear-gradient(135deg, #fff 0%, #f7f7ff 100%);
+        padding: 1.2rem;
+    }
+
+    .rp-value-title {
+        color: var(--rp-navy);
+        font-size: .95rem;
+        font-weight: 750;
+        margin-bottom: .55rem;
+    }
+
+    .rp-value-list {
+        margin: 0;
+        padding-left: 1.1rem;
+    }
+
+    .rp-value-list li {
+        color: #4b545d;
+        font-size: .77rem;
+        line-height: 1.55;
+        margin-bottom: .35rem;
+    }
+
+    .rp-value-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    .rp-contact-card {
+        border: 1px solid #d6e4f5;
+        border-radius: .85rem;
+        background: var(--rp-blue-soft);
+        padding: 1.2rem;
+    }
+
+    .rp-contact-title {
+        color: var(--rp-navy);
+        font-size: .95rem;
+        font-weight: 750;
+        margin-bottom: .4rem;
+    }
+
+    .rp-contact-text {
+        color: #4b545d;
+        font-size: .77rem;
+        line-height: 1.55;
+        margin-bottom: .8rem;
+    }
+
+    .rp-contact-card .btn {
+        font-size: .72rem;
+        border-radius: .45rem;
+        font-weight: 600;
+    }
+
+    /* ==================== RESPONSIVE ==================== */
 
     @media (max-width: 767.98px) {
-        .research-portfolio .page-title {
-            font-size: 1.65rem;
+        .rp-hero-inner {
+            padding: 1.35rem 1.25rem;
         }
 
-        .rp-overview-title {
-            font-size: 1.25rem;
+        .rp-page-title {
+            font-size: 1.75rem;
         }
 
-        .rp-publication-row {
-            display: block !important;
+        .rp-hero-lead {
+            font-size: .88rem;
         }
 
-        .rp-download {
-            min-width: 0;
-            border-left: 0;
-            border-top: 1px solid var(--rp-border);
-            justify-content: flex-start;
-            padding: .5rem .6rem;
+        .rp-section {
+            margin-top: 2rem;
         }
 
-        .rp-grant-meta {
-            margin-left: 1rem;
+        .rp-section-heading {
+            display: block;
         }
 
-        .rp-grant-label {
-            width: 7rem;
+        .rp-grant-detail {
+            grid-template-columns: 5.2rem 1fr;
         }
     }
 </style>
 
-<div class="container-fluid py-4 research-portfolio">
+<div class="container py-4 research-portfolio">
 
-    <!-- =====================================================
-         PAGE HEADER
-         ===================================================== -->
-    <header class="mb-4">
-        <h1 class="page-title">Research Portfolio</h1>
-        <p class="page-subtitle">
-            Publications, Grants, Research Roadmap and Experiments
-        </p>
-    </header>
+    <!-- ==================== HERO ==================== -->
+    <section class="rp-hero">
+        <div class="rp-hero-inner">
 
-    <!-- =====================================================
-         OVERVIEW CARDS
-         ===================================================== -->
-    <div class="row g-2 g-md-3 mb-4">
+            <div class="rp-eyebrow">Research Portfolio</div>
 
-        <!-- Publications -->
-        <div class="col-md-4">
-            <div class="card rp-overview-card green h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-journal-text rp-overview-icon"></i>
-                        <h2 class="rp-overview-title">Publication</h2>
-                    </div>
+            <h1 class="rp-page-title">
+                Applied Data Science &amp; Explainable Clustering
+            </h1>
 
-                    <p class="rp-overview-text">
-                        Published &amp; Draft Research Articles
-                    </p>
+            <p class="rp-hero-lead">
+                A research portfolio documenting applied work across machine learning,
+                data mining, clustering, feature selection, cluster validation, and
+                explainable AI. The work connects methodological research with practical
+                data and information-systems problems.
+            </p>
 
-                    <a href="#publications" class="btn rp-outline-btn">
-                        View Details
-                    </a>
+            <div class="rp-positioning">
+                <span>Data Science</span>
+                <span>Machine Learning</span>
+                <span>Clustering</span>
+                <span>Explainable AI</span>
+                <span>Feature Selection</span>
+                <span>Cluster Validation</span>
+            </div>
+
+            <div class="rp-hero-actions">
+                <a href="#publications" class="btn btn-primary">
+                    <i class="bi bi-journal-text me-2"></i>
+                    Publications
+                </a>
+                <a href="#research-roadmap" class="btn btn-outline-primary">
+                    <i class="bi bi-bullseye me-2"></i>
+                    Research Roadmap
+                </a>
+                <a href="{{ url_for('research_notes.index') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-journal-code me-2"></i>
+                    Research Notes
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== RESEARCH IMPACT ==================== -->
+    <section class="rp-metrics">
+        <div class="row g-3">
+
+            <div class="col-6 col-md-3">
+                <div class="rp-metric">
+                    <div class="rp-metric-number">9</div>
+                    <div class="rp-metric-label">Research publications</div>
                 </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="rp-metric">
+                    <div class="rp-metric-number">5</div>
+                    <div class="rp-metric-label">Publications directly focused on Data Mining / Data Science</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="rp-metric">
+                    <div class="rp-metric-number">2</div>
+                    <div class="rp-metric-label">Competitive government research grants</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="rp-metric">
+                    <div class="rp-metric-number">2026</div>
+                    <div class="rp-metric-label">Doctoral study in Data Science started</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== RESEARCH POSITIONING ==================== -->
+    <section class="rp-section">
+
+        <div class="rp-section-heading">
+            <div>
+                <h2 class="rp-section-title">Research Positioning</h2>
+                <p class="rp-section-subtitle">
+                    Research capabilities most relevant to Data Science, analytics, and applied AI roles.
+                </p>
             </div>
         </div>
 
-        <!-- Research Grant -->
-        <div class="col-md-4">
-            <div class="card rp-overview-card blue h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-bookmark-star rp-overview-icon"></i>
-                        <h2 class="rp-overview-title">Research Grant</h2>
-                    </div>
+        <hr class="rp-section-line">
 
-                    <p class="rp-overview-text">
-                        Enterprise Architecture &amp; Data Science
+        <div class="row g-3">
+
+            <div class="col-md-6 col-lg-3">
+                <div class="rp-theme-card">
+                    <div class="rp-theme-icon"><i class="bi bi-diagram-3"></i></div>
+                    <div class="rp-theme-title">Clustering &amp; Segmentation</div>
+                    <p class="rp-theme-text">
+                        K-Means, K-Medoids, categorical-data clustering, and interpretation
+                        of discovered groups.
                     </p>
-
-                    <a href="#research-grants" class="btn rp-outline-btn">
-                        View Details
-                    </a>
                 </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="rp-theme-card">
+                    <div class="rp-theme-icon"><i class="bi bi-funnel"></i></div>
+                    <div class="rp-theme-title">Feature Selection</div>
+                    <p class="rp-theme-text">
+                        Comparative analysis of feature-selection approaches and their
+                        effect on unsupervised learning performance.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="rp-theme-card">
+                    <div class="rp-theme-icon"><i class="bi bi-check2-square"></i></div>
+                    <div class="rp-theme-title">Cluster Validation</div>
+                    <p class="rp-theme-text">
+                        Multi-metric evaluation using internal validation measures and
+                        complementary distribution analysis.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="rp-theme-card">
+                    <div class="rp-theme-icon"><i class="bi bi-lightbulb"></i></div>
+                    <div class="rp-theme-title">Explainable AI</div>
+                    <p class="rp-theme-text">
+                        Research toward interpretable clustering and explanation methods
+                        that move beyond isolated feature attribution.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== FEATURED RESEARCH ==================== -->
+    <section class="rp-section">
+
+        <div class="rp-section-heading">
+            <div>
+                <h2 class="rp-section-title">Featured Research Direction</h2>
+                <p class="rp-section-subtitle">
+                    The research direction connecting current Data Science work with doctoral research.
+                </p>
             </div>
         </div>
 
-        <!-- Research Roadmap -->
-        <div class="col-md-4">
-            <div class="card rp-overview-card red h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-bullseye rp-overview-icon"></i>
-                        <h2 class="rp-overview-title">Research Roadmap</h2>
-                    </div>
+        <hr class="rp-section-line">
 
-                    <p class="rp-overview-text">
-                        Enterprise Architecture &amp; Data Science
-                    </p>
+        <div class="rp-featured">
+            <div class="rp-featured-label">Current research direction</div>
 
-                    <a href="#research-roadmap" class="btn rp-outline-btn">
-                        View Details
-                    </a>
-                </div>
+            <div class="rp-featured-title">
+                Explainable Clustering through Feature Relationships
+            </div>
+
+            <p class="rp-featured-text">
+                The research direction investigates how relationships among features can
+                complement conventional feature-attribution approaches when explaining
+                clustering results. It builds on prior work in feature selection,
+                cluster validation, and interpretation of categorical clusters.
+            </p>
+
+            <div class="rp-featured-flow">
+                <span>Data Preparation</span>
+                <i class="bi bi-arrow-right"></i>
+                <span>Clustering</span>
+                <i class="bi bi-arrow-right"></i>
+                <span>Validation</span>
+                <i class="bi bi-arrow-right"></i>
+                <span>Interpretation</span>
+                <i class="bi bi-arrow-right"></i>
+                <span>Explanation</span>
             </div>
         </div>
 
-    </div>
+    </section>
 
-    <!-- =====================================================
-         PUBLICATIONS
-         Source: research portfolio document, page 1
-         ===================================================== -->
+    <!-- ==================== PUBLICATIONS ==================== -->
     <section id="publications" class="rp-section">
 
-        <h2 class="rp-section-title">Publication</h2>
-
-        <div class="rp-publications">
-
-            <div class="row g-0 rp-publication-head d-none d-md-flex">
-                <div class="col-md-10 py-1">Articles</div>
-                <div class="col-md-2 py-1"></div>
+        <div class="rp-section-heading">
+            <div>
+                <h2 class="rp-section-title">Publications</h2>
+                <p class="rp-section-subtitle">
+                    Selected journal and conference publications spanning Data Science and Informatics.
+                </p>
             </div>
+        </div>
+
+        <hr class="rp-section-line">
+
+        <div class="row g-3">
 
             <!-- 2025 -->
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2025</span>
+                        <span class="rp-badge rp-badge-type">Journal</span>
+                    </div>
                     <div class="rp-publication-title">
                         Feature Selection Comparative Performance for Unsupervised Learning on Categorical Dataset
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year">2025</span>
-                        <span class="rp-source">
-                            Jurnal Techno Nusa Mandiri, 22(1), 61–69
-                        </span>
+                    <div class="rp-publication-source">
+                        Jurnal Techno Nusa Mandiri, 22(1), 61–69
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://doi.org/10.33480/techno.v22i1.6512"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://doi.org/10.33480/techno.v22i1.6512"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> View Article
+                        </a>
+                    </div>
+                </article>
             </div>
 
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2025</span>
+                        <span class="rp-badge rp-badge-type">Journal</span>
+                    </div>
                     <div class="rp-publication-title">
                         Optimalisasi Pengelompokkan Konsumen dengan Multi Internal Metric Validation dan Boxplot Analysis
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year">2025</span>
-                        <span class="rp-source">
-                            Journal of Big Data Analytic and Artificial Intelligence (JBIDAI), 8(1)
-                        </span>
+                    <div class="rp-publication-source">
+                        Journal of Big Data Analytic and Artificial Intelligence (JBIDAI), 8(1)
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://doi.org/10.71302/jbidai.v8i1.67"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://doi.org/10.71302/jbidai.v8i1.67"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> View Article
+                        </a>
+                    </div>
+                </article>
             </div>
 
             <!-- 2024 -->
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2024</span>
+                        <span class="rp-badge rp-badge-type">Journal</span>
+                    </div>
                     <div class="rp-publication-title">
                         Multilevel Modal Value Analysis for Interpreting Categorical K-Medoids Clusters Data
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year green">2024</span>
-                        <span class="rp-source">
-                            Jurnal Techno Nusa Mandiri, 21(2), 134–143
-                        </span>
+                    <div class="rp-publication-source">
+                        Jurnal Techno Nusa Mandiri, 21(2), 134–143
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://doi.org/10.33480/techno.v21i2.5796"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://doi.org/10.33480/techno.v21i2.5796"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> View Article
+                        </a>
+                    </div>
+                </article>
             </div>
 
             <!-- 2023 -->
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2023</span>
+                        <span class="rp-badge rp-badge-type">Conference</span>
+                    </div>
                     <div class="rp-publication-title">
                         Segmentasi Karakteristik Pelanggan dengan K-Means Clustering dan Davies-Bouldin Index
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year purple">2023</span>
-                        <span class="rp-source purple">
-                            Prosiding Seminar Nasional CORISINDO 2023, 92
-                        </span>
+                    <div class="rp-publication-source">
+                        Prosiding Seminar Nasional CORISINDO 2023, 92
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://drive.google.com/file/d/12V1puCiNMQempfTrf9OKL5IZJYriej5d/view?usp=sharing"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://drive.google.com/file/d/12V1puCiNMQempfTrf9OKL5IZJYriej5d/view?usp=sharing"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-file-earmark-pdf me-1"></i> View Paper
+                        </a>
+                    </div>
+                </article>
             </div>
 
             <!-- 2022 -->
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2022</span>
+                        <span class="rp-badge rp-badge-type">Conference</span>
+                    </div>
                     <div class="rp-publication-title">
                         Evaluasi Algoritma Peramalan Exponential Smoothing dan Holt-Winter’s Additive dalam Data Mining
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year">2022</span>
-                        <span class="rp-source">
-                            Prosiding Seminar Nasional CORISINDO 2022, 554
-                        </span>
+                    <div class="rp-publication-source">
+                        Prosiding Seminar Nasional CORISINDO 2022, 554
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://drive.google.com/file/d/12Q9pXMiKJ2BW0mP79WSHrA1B11qTBC3_/view?usp=sharing"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://drive.google.com/file/d/12Q9pXMiKJ2BW0mP79WSHrA1B11qTBC3_/view?usp=sharing"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-file-earmark-pdf me-1"></i> View Paper
+                        </a>
+                    </div>
+                </article>
             </div>
 
             <!-- 2021 -->
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2021</span>
+                        <span class="rp-badge rp-badge-type">Journal</span>
+                    </div>
                     <div class="rp-publication-title">
                         Penyusunan Arsitektur Bisnis Dan Data Perguruan Tinggi Sebagai Sumber Daya Akreditasi Menggunakan Togaf-Adm Berorientasi Artifak
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year green">2021</span>
-                        <span class="rp-source">
-                            Jurnal SEBATIK, 25(2)
-                        </span>
+                    <div class="rp-publication-source">
+                        Jurnal SEBATIK, 25(2)
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://doi.org/10.46984/sebatik.v25i2.1581"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://doi.org/10.46984/sebatik.v25i2.1581"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> View Article
+                        </a>
+                    </div>
+                </article>
             </div>
 
-            <!-- 2021 -->
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2021</span>
+                        <span class="rp-badge rp-badge-type">Conference</span>
+                    </div>
                     <div class="rp-publication-title">
                         Penyusunan Rekomendasi Kelulusan Siswa Sekolah Dasar di Era Pandemi COVID-19 Menggunakan Composite Perfomance Index (CPI)
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year purple">2021</span>
-                        <span class="rp-source purple">
-                            Prosiding Seminar Nasional CORISINDO 2021
-                        </span>
+                    <div class="rp-publication-source">
+                        Prosiding Seminar Nasional CORISINDO 2021
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://drive.google.com/file/d/12KbnEVL88-KMQ0ss9Fe_y_cTD-aLXC32/view?usp=sharing"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://drive.google.com/file/d/12KbnEVL88-KMQ0ss9Fe_y_cTD-aLXC32/view?usp=sharing"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-file-earmark-pdf me-1"></i> View Paper
+                        </a>
+                    </div>
+                </article>
             </div>
 
             <!-- 2020 -->
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2020</span>
+                        <span class="rp-badge rp-badge-type">Journal</span>
+                    </div>
                     <div class="rp-publication-title">
                         Boyer-Moore String Matching Algorithm and SHA512 Implementation for Jpeg/exif File Fingerprint Compilation in DSA
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year">2020</span>
-                        <span class="rp-source">
-                            JUITA: Jurnal Informatika, 8(1), 1–9
-                        </span>
+                    <div class="rp-publication-source">
+                        JUITA: Jurnal Informatika, 8(1), 1–9
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://doi.org/10.30595/juita.v8i1.4413"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://doi.org/10.30595/juita.v8i1.4413"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> View Article
+                        </a>
+                    </div>
+                </article>
             </div>
 
-            <!-- 2020 -->
-            <div class="row g-0 rp-publication-row align-items-center">
-                <div class="col-md-10 rp-publication-main">
+            <div class="col-md-6">
+                <article class="rp-publication-card">
+                    <div class="rp-publication-meta">
+                        <span class="rp-badge rp-badge-year">2020</span>
+                        <span class="rp-badge rp-badge-type">Journal</span>
+                    </div>
                     <div class="rp-publication-title">
                         Penyusunan File Fingerprint untuk Berkas Jpeg/exif dengan Hash Function SHA512 dan Algoritma Boyer-Moore String Matching
                     </div>
-                    <div class="rp-meta">
-                        <span class="rp-year green">2020</span>
-                        <span class="rp-source">
-                            Jurnal Edukasi dan Penelitian Informatika (JEPIN), 6(1), 61
-                        </span>
+                    <div class="rp-publication-source">
+                        Jurnal Edukasi dan Penelitian Informatika (JEPIN), 6(1), 61
                     </div>
-                </div>
-                <div class="col-md-2 rp-download">
-                    <a href="https://doi.org/10.26418/jp.v6i1.33119"
-                       target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-download"></i>
-                        <span>Download</span>
-                    </a>
-                </div>
+                    <div class="rp-publication-action">
+                        <a href="https://doi.org/10.26418/jp.v6i1.33119"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> View Article
+                        </a>
+                    </div>
+                </article>
             </div>
 
         </div>
     </section>
 
-    <!-- =====================================================
-         RESEARCH GRANTS
-         Source: research portfolio document, page 1
-         ===================================================== -->
+    <!-- ==================== RESEARCH GRANTS ==================== -->
     <section id="research-grants" class="rp-section">
 
-        <h2 class="rp-section-title">Research Grant</h2>
-        <hr class="rp-rule">
+        <div class="rp-section-heading">
+            <div>
+                <h2 class="rp-section-title">Research Grants</h2>
+                <p class="rp-section-subtitle">
+                    Competitive research funding supporting applied Informatics and Data Science work.
+                </p>
+            </div>
+        </div>
 
-        <div class="rp-grants">
+        <hr class="rp-section-line">
 
-            <div class="rp-grant">
-                <span class="rp-grant-number">1)</span>
-                <span class="rp-grant-title">
-                    Pengembangan Rencana Induk Sistem Informasi Perguruan Tinggi Sebagai Acuan Implementasi Smart-Campus Di STMIK PPKIA Tarakanita Rahmawati
-                </span>
+        <div class="row g-3">
 
-                <div class="rp-grant-meta">
-                    <div>
-                        <span class="rp-grant-label">a) Skema &amp; Tahun</span>
-                        : Penelitian Dosen Pemula Kemenristekdikti – 2020
+            <div class="col-lg-6">
+                <article class="rp-grant-card">
+                    <div class="rp-grant-index">Grant 01 · 2020</div>
+                    <div class="rp-grant-title">
+                        Pengembangan Rencana Induk Sistem Informasi Perguruan Tinggi
+                        Sebagai Acuan Implementasi Smart-Campus Di STMIK PPKIA
+                        Tarakanita Rahmawati
                     </div>
-                    <div>
-                        <span class="rp-grant-label">b) Bidang Ilmu</span>
-                        : Enterprise Architecture Planning
+                    <div class="rp-grant-detail">
+                        <strong>Scheme</strong>
+                        <span>Penelitian Dosen Pemula Kemenristekdikti</span>
+                        <strong>Field</strong>
+                        <span>Enterprise Architecture Planning</span>
                     </div>
-                </div>
+                </article>
             </div>
 
-            <div class="rp-grant">
-                <span class="rp-grant-number">2)</span>
-                <span class="rp-grant-title">
-                    Manajemen Artificial Intelligence Dalam Smart Education Untuk Segmentasi Karakteristik Pemustaka Perpustakaan Perguruan Tinggi
-                </span>
-
-                <div class="rp-grant-meta">
-                    <div>
-                        <span class="rp-grant-label">b) Skema &amp; Tahun</span>
-                        : Penelitian Dosen Pemula Kemenristekdikti – 2024
+            <div class="col-lg-6">
+                <article class="rp-grant-card">
+                    <div class="rp-grant-index">Grant 02 · 2024</div>
+                    <div class="rp-grant-title">
+                        Manajemen Artificial Intelligence Dalam Smart Education
+                        Untuk Segmentasi Karakteristik Pemustaka Perpustakaan
+                        Perguruan Tinggi
                     </div>
-                    <div>
-                        <span class="rp-grant-label">c) Bidang Ilmu</span>
-                        : Artificial Intelligence - Data Mining
+                    <div class="rp-grant-detail">
+                        <strong>Scheme</strong>
+                        <span>Penelitian Dosen Pemula Kemenristekdikti</span>
+                        <strong>Field</strong>
+                        <span>Artificial Intelligence · Data Mining</span>
                     </div>
-                </div>
+                </article>
             </div>
 
         </div>
     </section>
 
-    <!-- =====================================================
-         RESEARCH ROADMAP
-         The supplied roadmap artwork is used as the visual
-         centerpiece, matching the provided mock-up.
-         ===================================================== -->
-    <section id="research-roadmap" class="rp-section pb-4">
+    <!-- ==================== RESEARCH ROADMAP ==================== -->
+    <section id="research-roadmap" class="rp-section pb-2">
 
-        <h2 class="rp-section-title">Research Roadmap</h2>
-        <hr class="rp-rule">
+        <div class="rp-section-heading">
+            <div>
+                <h2 class="rp-section-title">Research Roadmap</h2>
+                <p class="rp-section-subtitle">
+                    Evolution from cluster interpretation and validation toward explainable clustering.
+                </p>
+            </div>
+        </div>
 
-        <div class="rp-roadmap-wrap">
+        <hr class="rp-section-line">
+
+        <div class="rp-roadmap-card">
             <img
                 src="{{ url_for('static', filename='images/research_roadmap.png') }}"
-                alt="Research Roadmap: Interpretation-Driven Clustering Framework & Explainable Clustering"
+                alt="Research Roadmap: Interpretation-Driven Clustering Framework and Explainable Clustering"
                 class="rp-roadmap-image"
                 loading="lazy"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
             >
 
-            <div class="rp-roadmap-fallback" style="display:none;">
-                Research roadmap image not found.
-                Place <strong>research_roadmap.png</strong> in
-                <code>static/img/</code>.
+            <div class="rp-roadmap-caption" style="display:none;">
+                Research roadmap image not found. Place
+                <strong>research_roadmap.png</strong> in
+                <code>static/images/</code>.
             </div>
+        </div>
+
+    </section>
+
+    <!-- ==================== CAREER RELEVANCE ==================== -->
+    <section class="rp-section pb-4">
+
+        <div class="row g-3">
+
+            <div class="col-lg-7">
+                <div class="rp-value-card h-100">
+                    <div class="rp-value-title">
+                        What this portfolio demonstrates
+                    </div>
+                    <ul class="rp-value-list">
+                        <li>Ability to formulate and execute applied Data Science research problems.</li>
+                        <li>Hands-on experience with clustering, feature selection, validation, and data analysis.</li>
+                        <li>Progressive research direction toward interpretable and explainable machine learning.</li>
+                        <li>Ability to connect technical methods with real organizational and information-system problems.</li>
+                        <li>Evidence of research productivity through publications and competitive research grants.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="rp-contact-card h-100">
+                    <div class="rp-contact-title">Open to Collaboration</div>
+                    <p class="rp-contact-text">
+                        Interested in Data Science, analytics, applied AI, systems analysis,
+                        research collaboration, and technically oriented professional opportunities.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="https://www.linkedin.com/in/rachmadfitriyanto"
+                           target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-linkedin me-1"></i> LinkedIn
+                        </a>
+
+                        <a href="{{ url_for('about.index') }}"
+                           class="btn btn-primary btn-sm">
+                            <i class="bi bi-person me-1"></i> About Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </section>
