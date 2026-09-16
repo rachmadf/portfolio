@@ -8,11 +8,13 @@ from routes.portfolio import portfolio
 from routes.research_notes import research_notes
 from routes.course_materials import course_materials
 from routes.about import about
+from routes.qrcode import qrcode
 
 app.register_blueprint(portfolio)
 app.register_blueprint(research_notes)
 app.register_blueprint(course_materials)
 app.register_blueprint(about)
+app.register_blueprint(qrcode)
 
 @app.route("/")
 def index():

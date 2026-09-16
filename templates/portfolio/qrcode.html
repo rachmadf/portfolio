@@ -1,0 +1,390 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}QR Code Generator{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">QR Code Generator</h1>
+        <p class="lead text-muted">
+            Create QR codes quickly from text, URLs, and other data.
+        </p>
+    </div>
+
+    <!-- Error -->
+    {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Unable to generate QR code.</strong>
+        <br>
+        {{ error }}
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <form method="POST">
+
+        <div class="row g-4">
+
+            <!-- Input -->
+            <div class="col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+
+                        <h5 class="card-title mb-3">
+                            <i class="bi bi-pencil-square"></i>
+                            Input
+                        </h5>
+
+                        <div class="mb-3">
+                            <label for="data" class="form-label">
+                                Text or URL
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="data"
+                                name="data"
+                                rows="7"
+                                maxlength="2953"
+                                required
+                            >{{ request.form.get("data", "") }}</textarea>
+
+                            <div class="text-end mt-1">
+                                <small class="text-muted">
+                                    <span id="charCount">0</span>/2953
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="filename" class="form-label">
+                                Filename
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="filename"
+                                name="filename"
+                                placeholder="my_qrcode"
+                                value="{{ request.form.get('filename', '') }}"
+                                required
+                            >
+
+                            <small class="text-muted">
+                                .png will be added automatically.
+                            </small>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                <i class="bi bi-qr-code"></i>
+                                Generate QR Code
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                id="clearBtn"
+                            >
+                                Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Customization -->
+            <div class="col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+
+                        <h5 class="card-title mb-3">
+                            <i class="bi bi-palette"></i>
+                            Customization
+                        </h5>
+
+                        <!-- Foreground -->
+                        <div class="mb-4">
+                            <label for="foreground_color" class="form-label">
+                                Foreground Color
+                            </label>
+
+                            <div class="input-group">
+                                <input
+                                    type="color"
+                                    class="form-control form-control-color"
+                                    id="foreground_color"
+                                    name="foreground_color"
+                                    value="{{ foreground_color }}"
+                                >
+
+                                <span
+                                    class="input-group-text"
+                                    id="foregroundLabel"
+                                >
+                                    {{ foreground_color }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Background -->
+                        <div class="mb-4">
+                            <label for="background_color" class="form-label">
+                                Background Color
+                            </label>
+
+                            <div class="input-group">
+                                <input
+                                    type="color"
+                                    class="form-control form-control-color"
+                                    id="background_color"
+                                    name="background_color"
+                                    value="{{ background_color }}"
+                                >
+
+                                <span
+                                    class="input-group-text"
+                                    id="backgroundLabel"
+                                >
+                                    {{ background_color }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Box size -->
+                        <div class="mb-4">
+                            <label for="box_size" class="form-label">
+                                QR Size
+                            </label>
+
+                            <input
+                                type="range"
+                                class="form-range"
+                                id="box_size"
+                                name="box_size"
+                                min="1"
+                                max="20"
+                                value="{{ box_size }}"
+                            >
+
+                            <div class="d-flex justify-content-between">
+                                <small class="text-muted">1</small>
+                                <small id="boxSizeLabel">
+                                    {{ box_size }}
+                                </small>
+                                <small class="text-muted">20</small>
+                            </div>
+                        </div>
+
+                        <!-- Border -->
+                        <div class="mb-3">
+                            <label for="border" class="form-label">
+                                Border
+                            </label>
+
+                            <input
+                                type="range"
+                                class="form-range"
+                                id="border"
+                                name="border"
+                                min="0"
+                                max="10"
+                                value="{{ border }}"
+                            >
+
+                            <div class="d-flex justify-content-between">
+                                <small class="text-muted">0</small>
+                                <small id="borderLabel">
+                                    {{ border }}
+                                </small>
+                                <small class="text-muted">10</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Preview -->
+            <div class="col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+
+                        <h5 class="card-title mb-3">
+                            <i class="bi bi-qr-code-scan"></i>
+                            QR Preview
+                        </h5>
+
+                        {% if qr_filename %}
+
+                            <div class="mb-3">
+                                <img
+                                    src="{{ url_for(
+                                        'static',
+                                        filename='generated/qr/' + qr_filename
+                                    ) }}"
+                                    alt="Generated QR Code"
+                                    class="img-fluid"
+                                    style="max-height: 280px;"
+                                >
+                            </div>
+
+                            <p class="text-muted small">
+                                {{ qr_filename }}
+                            </p>
+
+                            <a
+                                href="{{ url_for(
+                                    'static',
+                                    filename='generated/qr/' + qr_filename
+                                ) }}"
+                                download="{{ qr_filename }}"
+                                class="btn btn-success"
+                            >
+                                <i class="bi bi-download"></i>
+                                Download PNG
+                            </a>
+
+                        {% else %}
+
+                            <div
+                                class="d-flex flex-column
+                                       justify-content-center
+                                       align-items-center
+                                       text-muted"
+                                style="min-height: 300px;"
+                            >
+                                <i
+                                    class="bi bi-qr-code"
+                                    style="font-size: 5rem;"
+                                ></i>
+
+                                <p class="mt-3 mb-0">
+                                    Your QR code will appear here.
+                                </p>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dataInput = document.getElementById("data");
+    const charCount = document.getElementById("charCount");
+
+    const foregroundColor =
+        document.getElementById("foreground_color");
+
+    const backgroundColor =
+        document.getElementById("background_color");
+
+    const foregroundLabel =
+        document.getElementById("foregroundLabel");
+
+    const backgroundLabel =
+        document.getElementById("backgroundLabel");
+
+    const boxSize =
+        document.getElementById("box_size");
+
+    const boxSizeLabel =
+        document.getElementById("boxSizeLabel");
+
+    const border =
+        document.getElementById("border");
+
+    const borderLabel =
+        document.getElementById("borderLabel");
+
+    const clearBtn =
+        document.getElementById("clearBtn");
+
+
+    function updateCharacterCount() {
+        charCount.textContent = dataInput.value.length;
+    }
+
+
+    dataInput.addEventListener(
+        "input",
+        updateCharacterCount
+    );
+
+    updateCharacterCount();
+
+
+    foregroundColor.addEventListener("input", function () {
+        foregroundLabel.textContent =
+            foregroundColor.value.toUpperCase();
+    });
+
+
+    backgroundColor.addEventListener("input", function () {
+        backgroundLabel.textContent =
+            backgroundColor.value.toUpperCase();
+    });
+
+
+    boxSize.addEventListener("input", function () {
+        boxSizeLabel.textContent = boxSize.value;
+    });
+
+
+    border.addEventListener("input", function () {
+        borderLabel.textContent = border.value;
+    });
+
+
+    clearBtn.addEventListener("click", function () {
+
+        dataInput.value = "";
+        document.getElementById("filename").value = "";
+
+        foregroundColor.value = "#000000";
+        backgroundColor.value = "#FFFFFF";
+
+        boxSize.value = 10;
+        border.value = 4;
+
+        foregroundLabel.textContent = "#000000";
+        backgroundLabel.textContent = "#FFFFFF";
+
+        boxSizeLabel.textContent = "10";
+        borderLabel.textContent = "4";
+
+        updateCharacterCount();
+
+    });
+
+});
+</script>
+
+{% endblock %}

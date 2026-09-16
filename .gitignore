@@ -32,3 +32,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Generated QR codes
+static/generated/qr/*.png
