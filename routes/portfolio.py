@@ -20,3 +20,9 @@ def ncsis():
     return render_template(
         "/portfolio/ncsis/index.html"
     )
+
+@portfolio.route("/ocr", methods=["GET"])
+def ocr():
+    return render_template(
+        "/portfolio/ocr/index.html"
+    )

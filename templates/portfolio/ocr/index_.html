@@ -1,0 +1,135 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+OCR Text Extractor
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+
+                    <h3 class="mb-0">
+                        OCR Text Extractor
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <p class="text-muted">
+
+                        Upload an image file to extract text using
+                        <strong>PaddleOCR</strong>.
+
+                    </p>
+
+                    <!-- Upload Form -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('ocr.extract') }}"
+                        enctype="multipart/form-data">
+
+                        <div class="mb-3">
+
+                            <label
+                                for="image_file"
+                                class="form-label">
+
+                                Select Image
+
+                            </label>
+
+                            <input
+                                class="form-control"
+                                type="file"
+                                id="image_file"
+                                name="image_file"
+                                accept=".jpg,.jpeg,.png,.bmp,.tif,.tiff"
+                                required>
+
+                            <div class="form-text">
+
+                                Supported formats:
+                                JPG, JPEG, PNG, BMP, TIFF
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                            Extract Text
+
+                        </button>
+
+                    </form>
+
+                    <hr class="my-4">
+
+                    <!-- OCR Result -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="ocr_result"
+                            class="form-label">
+
+                            Extracted Text
+
+                        </label>
+
+                        <textarea
+                            id="ocr_result"
+                            class="form-control"
+                            rows="18"
+                            readonly>{{ extracted_text if extracted_text else '' }}</textarea>
+
+                    </div>
+
+                    <!-- Download -->
+
+                    {% if extracted_text %}
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('ocr.download_txt') }}">
+
+                        <input
+                            type="hidden"
+                            name="ocr_text"
+                            value="{{extracted_text}}">
+
+                        <button
+                            type="submit"
+                            class="btn btn-success">
+
+                            Download TXT
+
+                        </button>
+
+                    </form>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
